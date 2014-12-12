@@ -6,11 +6,49 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Création d'un nouvel utilisateur</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>
+            SOPRA COV
+        </h1>
+        <h2>
+            Formulaire d'inscription
+        </h2>
+        <form method="POST" action="/FormPage/FormServlet">
+            <label>Nom: </label>
+            <input type="text" name="Nom"><br/>
+            <label>Prénom: </label>
+            <input type="text" name="Prenom"><br/>
+            <label>Email: </label>
+            <input type="email" name="Email"><br/>
+            <label>Tél: </label>
+            <input type="text" name="Tel"><br/>
+            <label>Commune: </label>
+            <input type="text" name="Commune"><br/>
+            <label>Code Postal: </label>
+            <input type="text" name="CodePostal"><br/>
+            <label>Lieu de travail: </label>
+            <SELECT name="Workplace">
+                <OPTION VALUE="BLAGNAC">Enseignant</OPTION>
+                <OPTION VALUE="COLOMIERS">Etudiant</OPTION>
+            </SELECT>
+            <br/>
+            <label>Heure départ matin: </label>
+            <input type="time" name="HDMatin"><br/>
+            <label>Heure départ soir: </label>
+            <input type="time" name="HDSoir"><br/>
+            <label>Jours applicables: </label>
+            <input type="date" name="JApplicables"><br/>
+            <label>Conducteur: </label>
+            <input type="checkbox" name="Conducteur"><br/>
+            <label>Souhaite être notifié: </label>
+            <input type="checkbox" name="Notif"><br/>
+            <label>Submit </label>
+            <input type="submit" value="Submit"><br/>
+        </form>
+
     </body>
 </html>
