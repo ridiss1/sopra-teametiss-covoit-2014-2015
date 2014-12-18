@@ -20,8 +20,8 @@ import java.sql.Time;
  * @author Ridiss
  */
 public class DB {
-private String url = "jdbc:derby://localhost:1527/SopraDB";
-private String utilisateur = "sopra ";
+private String url = "jdbc:derby://localhost:1527/SopraDB;user=sopra;password=sopra";
+private String utilisateur = "sopra";
 private String motDePasse = "sopra";
 private Connection conn = null;
 private  Statement stmt = null;
@@ -39,7 +39,8 @@ public DB() {
        try
        {
            //Get a connection based on the db URL
-           conn = DriverManager.getConnection(url,utilisateur,motDePasse);
+           //conn = DriverManager.getConnection(url,utilisateur,motDePasse);
+           conn = DriverManager.getConnection(url);
            System.out.println("connection ok");
        }
        catch (Exception except)
