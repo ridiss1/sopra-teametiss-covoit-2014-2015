@@ -6,15 +6,13 @@
 package FormPage;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 
 
 /**
@@ -22,12 +20,12 @@ import java.sql.Statement;
  * @author Ridiss
  */
 public class DB {
-private String url = "jdbc:derby://localhost:1527/sopcov";
-private String utilisateur = "idriss";
-private String motDePasse = "idriss";
+private String url = "jdbc:derby://localhost:1527/SopraDB";
+private String utilisateur = "sopra ";
+private String motDePasse = "sopra";
 private Connection conn = null;
 private  Statement stmt = null;
-private  String Nomtable = "SOPRA";
+private  String Nomtable = "USERDB";
 
         
 
@@ -41,7 +39,7 @@ public DB() {
        try
        {
            //Get a connection based on the db URL
-           conn = DriverManager.getConnection(url,"idirss","idriss");
+           conn = DriverManager.getConnection(url,utilisateur,motDePasse);
            System.out.println("connection ok");
        }
        catch (Exception except)
@@ -52,14 +50,14 @@ public DB() {
 
     //Ajout Database
             
-   public synchronized String AjoutDB(String nom, String prenom, String email)
+   public synchronized String AjoutDB(String nom, String prenom, String email,int tel, String commune, int codePostal,String workplace,Time HDMatin,Time HDSoir,Date jrsAppli,boolean conducteur,boolean notify)
    {
        String r="Data inserted!";
        try
        {
            // creates a SQL Statement object in order to execute the SQL insert command
            stmt = conn.createStatement();
-           stmt.execute("insert into " + Nomtable + " (Nom,Prenom) values ('" +nom+ "','" + prenom + "','"+ email +"')");
+           stmt.execute("insert into " + Nomtable + " (Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,DateAppli,Conducteur,Notify) values ('" +nom+ "','" + prenom + "','"+ email +"','"+tel+"','"+commune+"','"+codePostal+"','"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+jrsAppli+"','"+conducteur+"','"+notify+"')");
            stmt.close();
        }
        catch (SQLException sqlExcept)
@@ -96,6 +94,16 @@ public DB() {
                // the name and age values are retrieved from the appropiate column
                String name = results.getString(results.findColumn("Nom"));
                String Prenom = results.getString(results.findColumn("Prenom"));
+               String email = results.getString(results.findColumn("Email"));
+               int tel = results.getInt(results.findColumn("Tel"));
+               String commune = results.getString(results.findColumn("Commune"));
+               int codePostal = results.getInt(results.findColumn("CodePostal"));
+               String workplace = results.getString(results.findColumn("LieuDeTravail"));
+               Time departMatin = results.getTime(results.findColumn("MorningTime"));
+               Time departSoir = results.getTime(results.findColumn("EveTime"));
+               Date dateAppli = results.getDate(results.findColumn("DateAppli"));
+               boolean conducteur = results.getBoolean(results.findColumn("Conducteur"));
+               boolean notify = results.getBoolean(results.findColumn("Notify"));
                r+=name + "  --  " + Prenom+"</br>";
            }
            results.close();
