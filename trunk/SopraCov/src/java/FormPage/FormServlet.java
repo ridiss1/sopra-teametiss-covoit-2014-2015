@@ -19,8 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  * @author Ridiss
  */
 public class FormServlet extends HttpServlet {
-     
-    private DB data= new DB();
+
+    private DB data = new DB();
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,25 +41,25 @@ public class FormServlet extends HttpServlet {
             int tel = Integer.parseInt(request.getParameter("Tel"));
             String Com = request.getParameter("Commune");
             int CodP = Integer.parseInt(request.getParameter("CodePostal"));
-            String Lieu = request.getParameter("LieuDeTravail");
-            Time Morn = Time.valueOf(request.getParameter("MorningTime"));
-            Time Eve=Time.valueOf(request.getParameter("EveTime"));
-            Date Dat = Date.valueOf(request.getParameter("DateAppli"));
+            String Lieu = request.getParameter("Workplace");
+            Time Morn = Time.valueOf(request.getParameter("HDMatin"));
+            
+            Time Eve = Time.valueOf(request.getParameter("HDSoir"));
+            Date Dat = Date.valueOf(request.getParameter("JApplicables"));
             boolean Conduc = Boolean.valueOf(request.getParameter("Conducteur"));
-            boolean Notif = Boolean.valueOf(request.getParameter("Notify"));
-           
-           
+            boolean Notif = Boolean.valueOf(request.getParameter("Notif"));
+
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FormServlet</title>");            
+            out.println("<title>Servlet FormServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            String result = data.AjoutDB(name, Prenom, Email,tel,Com,CodP,Lieu,Morn,Eve,Dat,Conduc,Notif);
-            out.println("<h1>Vous avez saisi " +result+  "</h1>");
+            String result = data.AjoutDB(name, Prenom, Email, tel, Com, CodP, Lieu, Morn, Eve, Dat, Conduc, Notif);
+            out.println("<h1>Vous avez saisi " + result + "</h1>");
            // out.println("<h2>The current available data within the database is:</br>"
-             //       + data.selectData() + "</h2>");
+            //       + data.selectData() + "</h2>");
 
             out.println("</body>");
             out.println("</html>");
