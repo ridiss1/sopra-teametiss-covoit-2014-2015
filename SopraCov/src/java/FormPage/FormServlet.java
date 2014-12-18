@@ -14,10 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Samanthol
+ * @author Ridiss
  */
 public class FormServlet extends HttpServlet {
-
+     
+    private DB data= new DB();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,14 +32,21 @@ public class FormServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            String name = request.getParameter("Nom");
+           String Prenom = request.getParameter("Prenom");
+           String Email = request.getParameter("Email");
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet User creation</title>");
+            out.println("<title>Servlet FormServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FormServlet at " + request.getContextPath() + "</h1>");
+            String result = data.AjoutDB(name, Prenom, Email);
+            out.println("<h1>Vous avez saisi " +result+  "</h1>");
+            out.println("<h2>The current available data within the database is:</br>"
+                    + data.selectData() + "</h2>");
+
             out.println("</body>");
             out.println("</html>");
         }
@@ -70,7 +78,6 @@ public class FormServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         processRequest(request, response);
     }
 
@@ -83,9 +90,5 @@ public class FormServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    public void setConnectionToDB(){
-        //Con
-    }
 
 }
