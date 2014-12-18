@@ -43,9 +43,8 @@ public class FormServlet extends HttpServlet {
             int CodP = Integer.parseInt(request.getParameter("CodePostal"));
             String Lieu = request.getParameter("Workplace");
             Time Morn = Time.valueOf(request.getParameter("HDMatin"));
-            
             Time Eve = Time.valueOf(request.getParameter("HDSoir"));
-            Date Dat = Date.valueOf(request.getParameter("JApplicables"));
+            String Dat =request.getParameter("JApplicables");
             boolean Conduc = Boolean.valueOf(request.getParameter("Conducteur"));
             boolean Notif = Boolean.valueOf(request.getParameter("Notif"));
 

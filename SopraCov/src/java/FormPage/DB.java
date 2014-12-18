@@ -51,7 +51,7 @@ public DB() {
 
     //Ajout Database
             
-   public synchronized String AjoutDB(String nom, String prenom, String email,int tel, String commune, int codePostal,String workplace,Time HDMatin,Time HDSoir,Date jrsAppli,boolean conducteur,boolean notify)
+   public synchronized String AjoutDB(String nom, String prenom, String email,int tel, String commune, int codePostal,String workplace,Time HDMatin,Time HDSoir,String jrsAppli,boolean conducteur,boolean notify)
    {
        String r="Data inserted!";
        try
