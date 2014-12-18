@@ -17,7 +17,7 @@ and open the template in the editor.
         <h2>
             Formulaire d'inscription
         </h2>
-        <form method="POST" action="/FormPage/FormServlet">
+        <form method="POST" action="FormServlet">
             <label>Nom: </label>
             <input type="text" name="Nom"><br/>
             <label>Prénom: </label>
@@ -35,7 +35,7 @@ and open the template in the editor.
                 <OPTION VALUE="BLAGNAC">Enseignant</OPTION>
                 <OPTION VALUE="COLOMIERS">Etudiant</OPTION>
             </SELECT>
-            <br/>
+            <br/>jdbc:derby://localhost:1527/TestDB [administrador on ADMINISTRADOR]
             <label>Heure départ matin: </label>
             <input type="time" name="HDMatin"><br/>
             <label>Heure départ soir: </label>
@@ -46,7 +46,7 @@ and open the template in the editor.
             <input type="checkbox" name="Conducteur"><br/>
             <label>Souhaite être notifié: </label>
             <input type="checkbox" name="Notif"><br/>
-            <label>Submit </label>
+            
             <input type="submit" value="Submit"><br/>
         </form>
 
