@@ -56,9 +56,9 @@ public class FormServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             String result = data.AjoutDB(name, Prenom, Email, tel, Com, CodP, Lieu, Morn, Eve, Dat, Conduc, Notif);
-            out.println("<h1>Vous avez saisi " + result + "</h1>");
-           // out.println("<h2>The current available data within the database is:</br>"
-            //       + data.selectData() + "</h2>");
+            out.println("<h1>Vous avez saisi :" + result + "</h1>");
+            out.println("<h2>The current available data within the database is:</br>"
+                   + data.selectData() + "</h2>");
 
             out.println("</body>");
             out.println("</html>");
