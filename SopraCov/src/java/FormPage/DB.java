@@ -20,12 +20,13 @@ import java.sql.Time;
  * @author Ridiss
  */
 public class DB {
-private String url = "jdbc:derby://localhost:1527/SopraDB;user=sopra;password=sopra";
+private String url = "jdbc:derby://localhost:1527/SOPRA;user=sopra;password=sopra";
 private String utilisateur = "sopra";
 private String motDePasse = "sopra";
 private Connection conn = null;
 private  Statement stmt = null;
 private  String Nomtable = "USERDB";
+private int id=0;
 
         
 
@@ -54,19 +55,24 @@ public DB() {
    public synchronized String AjoutDB(String nom, String prenom, String email,int tel, String commune, int codePostal,String workplace,Time HDMatin,Time HDSoir,String jrsAppli,boolean conducteur,boolean notify)
    {
        String r="Data inserted!";
+       
        try
        {
            // creates a SQL Statement object in order to execute the SQL insert command
            stmt = conn.createStatement();
-           stmt.execute("insert into " + Nomtable + " (Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,DateAppli,Conducteur,Notify) values ('" +nom+ "','" + prenom + "','"+ email +"','"+tel+"','"+commune+"','"+codePostal+"','"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+jrsAppli+"','"+conducteur+"','"+notify+"')");
+           stmt.execute("insert into " + Nomtable + " (Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,DateAppli,Conducteur,Notify) values ('" +nom+ "','" + prenom + "','"+ email+"',"+tel+",'"+commune+"',"+codePostal+",'"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+jrsAppli+"','"+conducteur+"','"+notify+"')");
            stmt.close();
+//           +"','"+tel+"','"+commune+"','"+codePostal+"','"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+jrsAppli+"','"+conducteur+"','"+notify
+//             ,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,DateAppli,Conducteur,Notify
        }
        catch (SQLException sqlExcept)
        {
            r=sqlExcept.toString();
        }
        System.out.println(r);
+       id++;
        return r;
+       
        
    }
     
@@ -105,7 +111,8 @@ public DB() {
                Date dateAppli = results.getDate(results.findColumn("DateAppli"));
                boolean conducteur = results.getBoolean(results.findColumn("Conducteur"));
                boolean notify = results.getBoolean(results.findColumn("Notify"));
-               r+=name + "  --  " + Prenom+"</br>";
+               r+=name + "  --  " + Prenom+"  --  " + email+ "  --  " + tel+"  --  " + commune+"  --  " + codePostal+"  --  " + workplace+
+                       "  --  " + departMatin+"  --  " + departSoir+"  --  " + dateAppli+"  --  " + conducteur+"  --  " + notify+"</br>";
            }
            results.close();
            stmt.close();
