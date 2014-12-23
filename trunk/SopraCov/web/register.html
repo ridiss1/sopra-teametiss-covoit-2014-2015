@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="utf-8">
+        <title>Creer compte</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- CSS -->
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Oleo+Script:400,700'>
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body>
+        <img id="image" src="./images/Sopragroup.png" alt="" />
+        <!--BEGIN #signup-form -->
+
+        <div class="register-container container">
+            <div class="row">
+                <div class="iphone span5">
+                    <img src="assets/img/iphone.png" alt="">
+                </div>
+                <div class="register span6">
+                <p>S'il vous plaît, remplissez les champs ci-dessous en vous assurant de fournir une adresse mail valide 
+	        </p>
+                <form method="POST" action="FormServlet">
+            <label>Nom * </label>
+            <input type="text" name="Nom"><br/>
+            <label>Prénom * </label>
+            <input type="text" name="Prenom"><br/>
+            <label>Mot de Passe * </label>
+            <input type="password" name="Passe"><br/>
+            <label>Email * </label>
+            <input type="email" name="Email"><br/>
+            <label>Telephone </label>
+            <input type="text" name="Tel"><br/>
+            <label>Commune *</label>
+            <input type="text" name="Commune"><br/>
+            <label>Code Postal *</label>
+            <input type="text" name="CodePostal"><br/>
+            <label>Lieu de travail *</label>
+            <SELECT name="Workplace">
+                <OPTION VALUE="BLAGNAC">Blagnac</OPTION>
+                <OPTION VALUE="COLOMIERS">Colomiers</OPTION>
+            </SELECT>
+            <br/>
+            <label>Heure départ matin *    ex: 11:32:00</label>
+            <input type="time" name="HDMatin"><br/>
+            <label>Heure départ soir   ex: 11:32:00</label>
+            <input type="time" name="HDSoir"><br/>
+            <label>Jours applicables *   ex: 11/12/2000</label>
+            <input type="date" name="JApplicables"><br/>
+            <label>Conducteur </label>
+            <input type="checkbox" name="Conducteur"><br/>
+            <label>Souhaite être notifié: </label>
+            <input type="checkbox" name="Notif"><br/>
+            
+            <button id="submit" type="submit">Submit</button>
+        </form>
+                
+        <div id="required">
+	<p>* Champs requis<br/>
+	</p>
+	</div>
+        
+                </div>
+            </div>
+        </div>
+
+        <!-- Javascript -->
+        <script src="assets/js/jquery-1.8.2.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery.backstretch.min.js"></script>
+        <script src="assets/js/scripts.js"></script>
+
+    </body>
+
+</html>
+
