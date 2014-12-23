@@ -19,14 +19,12 @@ import java.sql.Time;
  *
  * @author Ridiss
  */
-public class DB {
-private String url = "jdbc:derby://localhost:1527/SOPRA;user=sopra;password=sopra";
-private String utilisateur = "sopra";
-private String motDePasse = "sopra";
+public final class DB {
+private final String url = "jdbc:derby://localhost:1527/SopraDB;user=sopra;password=sopra";
 private Connection conn = null;
 private  Statement stmt = null;
-private  String Nomtable = "USERDB";
-private int id=0;
+private final  String Nomtable = "UserDB";
+private static int id=0;
 
         
 
@@ -46,21 +44,21 @@ public DB() {
        }
        catch (Exception except)
        {
-           except.printStackTrace();
+           System.out.println("Exception in DB class="+except);
        }
    }
 
     //Ajout Database
             
-   public synchronized String AjoutDB(String nom, String prenom, String email,int tel, String commune, int codePostal,String workplace,Time HDMatin,Time HDSoir,String jrsAppli,boolean conducteur,boolean notify)
+   public synchronized String AjoutDB(String nom, String prenom, String email,int tel, String commune, int codePostal,String workplace,Time HDMatin,Time HDSoir,String jrsAppli,boolean conducteur,boolean notify,String pass)
    {
-       String r="Data inserted!";
+       String r="Data";
        
        try
        {
            // creates a SQL Statement object in order to execute the SQL insert command
            stmt = conn.createStatement();
-           stmt.execute("insert into " + Nomtable + " (Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,DateAppli,Conducteur,Notify) values ('" +nom+ "','" + prenom + "','"+ email+"',"+tel+",'"+commune+"',"+codePostal+",'"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+jrsAppli+"','"+conducteur+"','"+notify+"')");
+           stmt.execute("insert into " + Nomtable + " (ID,Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,DateAppli,Conducteur,Notify,Password) values (" +id +",'" +nom+ "','" + prenom + "','"+ email +"',"+tel+",'"+commune+"',"+codePostal+",'"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+jrsAppli+"','"+conducteur+"','"+notify+"','"+pass+"')");
            stmt.close();
 //           +"','"+tel+"','"+commune+"','"+codePostal+"','"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+jrsAppli+"','"+conducteur+"','"+notify
 //             ,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,DateAppli,Conducteur,Notify
@@ -71,9 +69,7 @@ public DB() {
        }
        System.out.println(r);
        id++;
-       return r;
-       
-       
+       return r;             
    }
     
    // prendre des données de la DB
@@ -111,8 +107,10 @@ public DB() {
                Date dateAppli = results.getDate(results.findColumn("DateAppli"));
                boolean conducteur = results.getBoolean(results.findColumn("Conducteur"));
                boolean notify = results.getBoolean(results.findColumn("Notify"));
+               String pass=results.getString(results.findColumn("Password"));
                r+=name + "  --  " + Prenom+"  --  " + email+ "  --  " + tel+"  --  " + commune+"  --  " + codePostal+"  --  " + workplace+
-                       "  --  " + departMatin+"  --  " + departSoir+"  --  " + dateAppli+"  --  " + conducteur+"  --  " + notify+"</br>";
+                       "  --  " + departMatin+"  --  " + departSoir+"  --  " + dateAppli+"  --  " + conducteur+"  --  " + notify+"  --  " +pass+"</br>";
+
            }
            results.close();
            stmt.close();
@@ -124,6 +122,40 @@ public DB() {
        return r;
    }
 
+    // Verifie si on existe dans la DB
+   public String verifData(String nom,String pass)
+   {
+       String r="";
+       try
+       {
+           // creates a SQL Statement object in order to execute the SQL select command
+           stmt = conn.createStatement();
+           // the SQL select command will provide a ResultSet containing the query results           
+           ResultSet results = stmt.executeQuery("SELECT * FROM "+Nomtable+" WHERE ("+Nomtable+".Nom='"+nom+"') AND ("+Nomtable+".Password='"+pass+"')");
+           // the ResultSetMetaData object will provide information about the columns
+           // for instance the number of columns, their labels, etc.
+           ResultSetMetaData rsmd = results.getMetaData();
+           int ID = -1;
+           while(results.next())
+           {               
+               ID = results.getInt(results.findColumn("ID")); 
+           }
+           if(ID!=-1)
+           {
+                r="voila";
+           }
+          
+           results.close();
+           stmt.close();
+       }
+       catch (SQLException sqlExcept)
+       {
+           r=sqlExcept.toString();
+       }
+       return r;
+   }
+   
+    
    //fermeture de la connection
    
    public void shutdown()
@@ -137,7 +169,7 @@ public DB() {
        }
        catch (SQLException sqlExcept)
        {
-           sqlExcept.printStackTrace();
+           System.out.println("SQLException in DB class="+sqlExcept);
        }
    }
 
