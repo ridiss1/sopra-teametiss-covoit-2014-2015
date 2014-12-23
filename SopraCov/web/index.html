@@ -1,54 +1,50 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Création d'un nouvel utilisateur</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1>
-            SOPRA COV
-        </h1>
-        <h2>
-            Formulaire d'inscription
-        </h2>
-        <form method="POST" action="FormServlet">
-            <label>Nom: </label>
-            <input type="text" name="Nom"><br/>
-            <label>Prénom: </label>
-            <input type="text" name="Prenom"><br/>
-            <label>Email: </label>
-            <input type="email" name="Email"><br/>
-            <label>Tél: </label>
-            <input type="text" name="Tel"><br/>
-            <label>Commune: </label>
-            <input type="text" name="Commune"><br/>
-            <label>Code Postal: </label>
-            <input type="text" name="CodePostal"><br/>
-            <label>Lieu de travail: </label>
-            <SELECT name="Workplace">
-                <OPTION VALUE="BLAGNAC">Enseignant</OPTION>
-                <OPTION VALUE="COLOMIERS">Etudiant</OPTION>
-            </SELECT>
-            <br/>
-            <label>Heure départ matin: </label>
-            <input type="time" name="HDMatin"><br/>
-            <label>Heure départ soir: </label>
-            <input type="time" name="HDSoir"><br/>
-            <label>Jours applicables: </label>
-            <input type="date" name="JApplicables"><br/>
-            <label>Conducteur: </label>
-            <input type="checkbox" name="Conducteur"><br/>
-            <label>Souhaite être notifié: </label>
-            <input type="checkbox" name="Notif"><br/>
+<html lang="en-US">
+
+<head>
+
+  <title>Login</title>
+
+    <link rel="stylesheet" href="css/style.css" media="screen" type="text/css" />
+
+    <meta charset="utf-8">
+
+    <title>Bienvenue dans SopraCov</title>
+	
+	<body style="background-image:url(./images/1.png)" "background-repeat:no-repeat" >
+
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,700">
+</head>
+
+<body>
+	
+	<img id="signup-icon" src="./images/Sopragroup.png" alt="" />
+	<br /><br /><h1>Bienvenue dans SOPRACOV</h1>
+	
+	<div class="container">
+
+      <div id="login">
+
+        <!--<form action="javascript:void(0);" method="get"> -->
+        <form method="POST" action="LogServlet">
             
-            <input type="submit" value="Submit"><br/>
+          
+          <fieldset class="clearfix">
+
+            <p><span class="fontawesome-user"></span><input type="text" name="Nom" value="Identifiant" onBlur="if(this.value == '') this.value = 'Identifiant'" onFocus="if(this.value == 'Identifiant') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+            <p><span class="fontawesome-lock"></span><input type="password"  name="Passe" value="Password" onBlur="if(this.value == '') this.value = 'Password'" onFocus="if(this.value == 'Password') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
+            <p><input type="submit" value="Se connecter"></p>
+
+          </fieldset>
+
         </form>
 
-    </body>
+        <p>Pas un membre ? <a href="register.html">Creer compte</a><span class="fontawesome-arrow-right"></span></p>
+
+      </div> 
+
+    </div>
+
+</body>
+
 </html>

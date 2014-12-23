@@ -7,24 +7,21 @@ package FormPage;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.sql.Time;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Ridiss
+ * @author UT
  */
-public class FormServlet extends HttpServlet {
+@WebServlet(name = "LogServlet", urlPatterns = {"/LogServlet"})
+public class LogServlet extends HttpServlet {
 
     private DB data = new DB();
-    private boolean Conduc ;
-    private boolean Notif;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -38,44 +35,31 @@ public class FormServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String name = request.getParameter("Nom");
-            String Prenom = request.getParameter("Prenom");
-            String Email = request.getParameter("Email");
-            int tel = Integer.parseInt(request.getParameter("Tel"));
-            String Com = request.getParameter("Commune");
-            int CodP = Integer.parseInt(request.getParameter("CodePostal"));
-            String Lieu = request.getParameter("Workplace");
-            Time Morn = Time.valueOf(request.getParameter("HDMatin"));            
-            Time Eve = Time.valueOf(request.getParameter("HDSoir"));
-            String Dat = request.getParameter("JApplicables");
-            boolean Conduc = Boolean.valueOf(request.getParameter("Conducteur"))!=null;
-            boolean Notif = Boolean.valueOf(request.getParameter("Notif"))!=null;
-            String pass=request.getParameter("Passe");
-
             /* TODO output your page here. You may use following sample code. */
-            String result = data.AjoutDB(name, Prenom, Email, tel, Com, CodP, Lieu, Morn, Eve, Dat, Conduc, Notif,pass);
-            
-            if("Data".equals(result))
+            String name = request.getParameter("Nom");
+            String pass=request.getParameter("Passe");
+            if("admin".equals(name) & "admin".equals(pass))
             {
-                //String s=data.verifieLaDate(name,Prenom);
-                // ICI je veux faire un test pour vérifier que le date rentrée est supérieure ou égale à la date courante
-                String s="ok";
-                if("ok".equals(s))
+                RequestDispatcher rd = request.getRequestDispatcher("admin.html");
+                rd.include(request, response);                
+            }
+            else
+            {
+                String S=data.verifData(name, pass);
+                if("voila".equals(S))
                 {
                     RequestDispatcher rd = request.getRequestDispatcher("client.html");
                     rd.include(request, response);
                 }
                 else
                 {
-                    RequestDispatcher rd = request.getRequestDispatcher("errordate.html");
+                    RequestDispatcher rd = request.getRequestDispatcher("nologin.html");
                     rd.include(request, response);
-                }               
+                    
+                }
+                              
             }
-            else
-            {
-                RequestDispatcher rd = request.getRequestDispatcher("error.html");
-                rd.include(request, response);
-            }
+            
         }
     }
 

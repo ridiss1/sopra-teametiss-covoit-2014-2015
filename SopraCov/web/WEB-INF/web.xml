@@ -8,6 +8,14 @@
         <servlet-name>FormServlet</servlet-name>
         <url-pattern>/FormServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>LogServlet</servlet-name>
+        <servlet-class>FormPage.LogServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogServlet</servlet-name>
+        <url-pattern>/LogServlet</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
