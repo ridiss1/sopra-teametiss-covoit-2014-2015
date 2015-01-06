@@ -23,7 +23,7 @@ public final class DB {
 private final String url = "jdbc:derby://localhost:1527/SopraDB;user=sopra;password=sopra";
 private Connection conn = null;
 private  Statement stmt = null;
-private final  String Nomtable = "UserDB";
+private final  String Nomtable = "USERBD";
 private static int id=0;
 
         
