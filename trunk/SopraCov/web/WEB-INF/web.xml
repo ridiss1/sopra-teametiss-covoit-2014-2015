@@ -4,6 +4,10 @@
         <servlet-name>FormServlet</servlet-name>
         <servlet-class>FormPage.FormServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfileServlet</servlet-name>
+        <servlet-class>FormPage.ProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>FormServlet</servlet-name>
         <url-pattern>/FormServlet</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>LogServlet</servlet-name>
         <url-pattern>/LogServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileServlet</servlet-name>
+        <url-pattern>/ProfileServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
