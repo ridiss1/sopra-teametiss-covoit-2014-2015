@@ -7,7 +7,6 @@ package FormPage;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.Time;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,8 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 public class FormServlet extends HttpServlet {
 
     private DB data = new DB();
-    private boolean Conduc ;
-    private boolean Notif;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,15 +42,60 @@ public class FormServlet extends HttpServlet {
             String Com = request.getParameter("Commune");
             int CodP = Integer.parseInt(request.getParameter("CodePostal"));
             String Lieu = request.getParameter("Workplace");
-            Time Morn = Time.valueOf(request.getParameter("HDMatin"));  //+":10"          
-            Time Eve = Time.valueOf(request.getParameter("HDSoir"));
-            String Dat = request.getParameter("JApplicables");
-            boolean Conduc = Boolean.valueOf(request.getParameter("Conducteur"))!=null;
-            boolean Notif = Boolean.valueOf(request.getParameter("Notif"))!=null;
+            String Morn = ""+Time.valueOf(request.getParameter("HDMatin")+":00");            
+            String Eve = ""+Time.valueOf(request.getParameter("HDSoir")+":00");
+            ////////////////////////////////////////////////////////////////////////////
+            boolean Lun = false,Mar = false,Mer = false,Jeu = false,Ven = false,Sam = false,Dim = false,Conduc = false,Notif =false;
+            /////////////////////////////////////////////////////////////////////////////
+            String L=request.getParameter("Lundi");
+            String M=request.getParameter("Mardi");
+            String Me=request.getParameter("Mercredi");
+            String J=request.getParameter("Jeudi");
+            String V=request.getParameter("Vendredi");
+            String S=request.getParameter("Samedi");
+            String D=request.getParameter("Dimanche");
+            String Con=request.getParameter("Conducteur");
+            String Not=request.getParameter("Notify");
+            /////////////////////////////////////////////////////////////////////////////
+            if("on".equals(L))
+            {
+                Lun =true;
+            }
+            else if("on".equals(M))
+            {
+                Mar =true;
+            }
+            else if("on".equals(Me))
+            {
+                Mer =true;
+            }
+            else if("on".equals(J))
+            {
+                Jeu =true;
+            }
+            else if("on".equals(V))
+            {
+                Ven =true;
+            }
+             else if("on".equals(S))
+            {
+                Sam =true;
+            }
+             else if("on".equals(D))
+            {
+                Dim =true;
+            }
+            else if("on".equals(Con))
+            {
+                Conduc =true;
+            }
+            else if("on".equals(Not))
+            {
+                Notif =true;
+            }
             String pass=request.getParameter("Passe");
-
             /* TODO output your page here. You may use following sample code. */
-            String result = data.AjoutDB(name, Prenom, Email, tel, Com, CodP, Lieu, Morn, Eve, Dat, Conduc, Notif,pass);
+            String result = data.AjoutDB(name, Prenom, Email, tel, Com, CodP, Lieu, Morn, Eve,Lun,Mar,Mer,Jeu,Ven,Sam,Dim,Conduc, Notif,pass);
             
             if("Data".equals(result))
             {

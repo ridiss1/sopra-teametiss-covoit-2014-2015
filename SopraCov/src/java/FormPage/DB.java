@@ -23,7 +23,7 @@ public final class DB {
 private final String url = "jdbc:derby://localhost:1527/SopraDB;user=sopra;password=sopra";
 private Connection conn = null;
 private  Statement stmt = null;
-private final  String Nomtable = "USERBD";
+private final  String Nomtable = "UserDB";
 private static int id=0;
 
         
@@ -50,7 +50,7 @@ public DB() {
 
     //Ajout Database
             
-   public synchronized String AjoutDB(String nom, String prenom, String email,int tel, String commune, int codePostal,String workplace,Time HDMatin,Time HDSoir,String jrsAppli,boolean conducteur,boolean notify,String pass)
+   public synchronized String AjoutDB(String nom, String prenom, String email,int tel, String commune, int codePostal,String workplace,String HDMatin,String HDSoir,boolean lun,boolean mar,boolean mer,boolean jeu,boolean ven,boolean sam,boolean dim,boolean conducteur,boolean notify,String pass)
    {
        String r="Data";
        
@@ -58,7 +58,7 @@ public DB() {
        {
            // creates a SQL Statement object in order to execute the SQL insert command
            stmt = conn.createStatement();
-           stmt.execute("insert into " + Nomtable + " (ID,Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,DateAppli,Conducteur,Notify,Password) values (" +id +",'" +nom+ "','" + prenom + "','"+ email +"',"+tel+",'"+commune+"',"+codePostal+",'"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+jrsAppli+"','"+conducteur+"','"+notify+"','"+pass+"')");
+           stmt.execute("insert into " + Nomtable + " (ID,Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche,Conducteur,Notify,Password) values (" +id +",'" +nom+ "','" + prenom + "','"+ email +"',"+tel+",'"+commune+"',"+codePostal+",'"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+lun+"','"+mar+"','"+mer+"','"+jeu+"','"+ven+"','"+sam+"','"+dim+"','"+conducteur+"','"+notify+"','"+pass+"')");
            stmt.close();
 //           +"','"+tel+"','"+commune+"','"+codePostal+"','"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+jrsAppli+"','"+conducteur+"','"+notify
 //             ,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,DateAppli,Conducteur,Notify
@@ -69,6 +69,28 @@ public DB() {
        }
        System.out.println(r);
        id++;
+       return r;             
+   }
+      
+      //Pour cette methode, j'ai aussi besoin d'un id de session pour supprimer toutes les informations de l'utilisateur!!!
+      public synchronized String SuppDB()
+      {
+       String r="Data";
+       
+       try
+       {
+           // creates a SQL Statement object in order to execute the SQL insert command
+           stmt = conn.createStatement();
+           stmt.execute("delete" + Nomtable + " (ID,Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche,Conducteur,Notify,Password) WHERE ID=id_session");
+           stmt.close();
+
+       }
+       catch (SQLException sqlExcept)
+       {
+           r=sqlExcept.toString();
+       }
+       System.out.println(r);
+       id--;
        return r;             
    }
     
@@ -152,6 +174,61 @@ public DB() {
        {
            r=sqlExcept.toString();
        }
+       return r;
+   }
+   
+    // Verifie si on existe dans la DB
+   public String verifData(String pass)
+   {
+       String r="";
+       try
+       {
+           // creates a SQL Statement object in order to execute the SQL select command
+           stmt = conn.createStatement();
+           // the SQL select command will provide a ResultSet containing the query results           
+           ResultSet results = stmt.executeQuery("SELECT * FROM "+Nomtable+" WHERE "+Nomtable+".Password='"+pass+"'");
+           // the ResultSetMetaData object will provide information about the columns
+           // for instance the number of columns, their labels, etc.
+           ResultSetMetaData rsmd = results.getMetaData();
+           int ID = -1;
+           while(results.next())
+           {               
+               ID = results.getInt(results.findColumn("ID")); 
+           }
+           if(ID!=-1)
+           {
+                r="voila";
+           }
+          
+           results.close();
+           stmt.close();
+       }
+       catch (SQLException sqlExcept)
+       {
+           r=sqlExcept.toString();
+       }
+       return r;
+   }
+   
+   public String ModifPswDB(String pass)
+   {
+       String r="Data";
+       try
+       {
+           // creates a SQL Statement object in order to execute the SQL select command
+           stmt = conn.createStatement();
+           int entier;
+           // the SQL select command will provide a ResultSet containing the query results           
+           entier = stmt.executeUpdate("UPDATE * FROM "+Nomtable+" WHERE ("+Nomtable+".Password='"+pass+"')");
+           // the ResultSetMetaData object will provide information about the columns
+           // for instance the number of columns, their labels, etc.
+           stmt.close();
+       }
+       catch (SQLException sqlExcept)
+       {
+           r=sqlExcept.toString();
+       }
+       System.out.println(r);
        return r;
    }
    
