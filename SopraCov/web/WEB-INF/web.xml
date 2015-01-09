@@ -5,8 +5,8 @@
         <servlet-class>FormPage.FormServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProfileServlet</servlet-name>
-        <servlet-class>FormPage.ProfileServlet</servlet-class>
+        <servlet-name>AvanceServlet</servlet-name>
+        <servlet-class>FormPage.AvanceServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FormServlet</servlet-name>
@@ -20,13 +20,22 @@
         <servlet-name>LogServlet</servlet-name>
         <url-pattern>/LogServlet</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ProfileServlet</servlet-name>
+        <servlet-class>FormPage.ProfileServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/ProfileServlet</url-pattern>
+    </servlet-mapping>    
+    
+    <servlet-mapping>
+        <servlet-name>AvanceServlet</servlet-name>
+        <url-pattern>/AvanceServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-</web-app>
+    </web-app>

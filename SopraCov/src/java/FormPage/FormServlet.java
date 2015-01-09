@@ -34,7 +34,9 @@ public class FormServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) 
+        {
+            int count = 0;
             String name = request.getParameter("Nom");
             String Prenom = request.getParameter("Prenom");
             String Email = request.getParameter("Email");
@@ -60,42 +62,49 @@ public class FormServlet extends HttpServlet {
             if("on".equals(L))
             {
                 Lun =true;
+                count++;
             }
-            else if("on".equals(M))
+            if("on".equals(M))
             {
                 Mar =true;
+                count++;
             }
-            else if("on".equals(Me))
+            if("on".equals(Me))
             {
                 Mer =true;
+                count++;
             }
-            else if("on".equals(J))
+            if("on".equals(J))
             {
                 Jeu =true;
+                count++;
             }
-            else if("on".equals(V))
+            if("on".equals(V))
             {
                 Ven =true;
+                count++;
             }
-             else if("on".equals(S))
+             if("on".equals(S))
             {
                 Sam =true;
+                count++;
             }
-             else if("on".equals(D))
+             if("on".equals(D))
             {
                 Dim =true;
+                count++;
             }
-            else if("on".equals(Con))
+            if("on".equals(Con))
             {
                 Conduc =true;
             }
-            else if("on".equals(Not))
+            if("on".equals(Not))
             {
                 Notif =true;
             }
             String pass=request.getParameter("Passe");
             /* TODO output your page here. You may use following sample code. */
-            String result = data.AjoutDB(name, Prenom, Email, tel, Com, CodP, Lieu, Morn, Eve,Lun,Mar,Mer,Jeu,Ven,Sam,Dim,Conduc, Notif,pass);
+            String result = data.AjoutDB(name, Prenom, Email, tel, Com, CodP, Lieu, Morn, Eve,Lun,Mar,Mer,Jeu,Ven,Sam,Dim,Conduc, Notif,pass,count);
             
             if("Data".equals(result))
             {
