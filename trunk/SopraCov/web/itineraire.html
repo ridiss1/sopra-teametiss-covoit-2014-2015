@@ -15,6 +15,7 @@
         <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Oleo+Script:400,700'>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
+		
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -36,30 +37,43 @@
                 <div class="register span6">
                     <form method="POST" action="ProfileServlet">
             
-                       <!--BEGIN #subscribe-inner -->
-							<div id="signup-inner">			
-								<p><a href="itineraire.html">Recherche classique</a><span class="fontawesome-arrow-right"></span>
-									<span class="btn-separator">, </span>
-								<a href="avance.html">Recherche Avancee</a><span class="fontawesome-arrow-right"></span>
-								<span class="btn-separator">ou</span>
-								<a href="pswdregister.html">Modifier mot de passe</a><span class="fontawesome-arrow-right"></span></p> 
-								
-								<p><h3>Recherche d'itineraires</h3></p><br/><tr/> 			
-							</div>
-							<table>
-								<tr>
-									<img width="500" src="images/2.jpg" alt=""/>                               
-								</tr>
-							</table>
-							<p/>
-						<p><a href="index.html">Deconnexion</a><span class="fontawesome-arrow-right"></span></p>    
+                       <div>
+							<table id='results'>
+								<thead>
+									<tr id='header_row'>
+										<th>Départ</th><th/><th/></th><th/><th/>
+										<th>Arrivée</th><th/><th/></th><th/><th/>
+										<th>Conducteur</th><th/><th/></th><th/><th/>
+										<th>Numero</th><th/><th/></th><th/><th/>
+										<th>Details</th><th/><th/></th><th/><th/>
+										<th><a href="client.html">RETOUR</a></th><th/><th/></th><th/><th/>
+									</tr>
+								</thead>
+
+								<tbody id='row_1'>
+											<tr class='odd'>
+												<td>Blagnac</td><th/><th/></th><th/><th/>
+												<td>Castres</td><th/><th/></th><th/><th/>
+												<td >Jayce</td><th/><th/></th><th/><th/>
+												<td >0677777777</td><th/><th/></th><th/><th/>
+												<td align='center'><a style='background-color:#26ceff;' href="https://www.google.fr/maps/dir/Blagnac/Castres/">Cliquez</a></td><th/><th/></th><th/><th/>
+											</tr>
+
+											
+								</tbody>
+
+								<tbody id='row_1'>
+											<tr class='odd'>
+												<td>Castres</td><th/><th/></th><th/><th/>
+												<td>Blagnac</td><th/><th/></th><th/><th/>												
+												<td >olga</td><th/><th/></th><th/><th/>
+												<td >0677777777</td><th/><th/></th><th/><th/>
+												<td align='center'><a style='background-color:#f40002;' href="https://www.google.fr/maps/dir/Castres/Blagnac/">Cliquez</a></td><th/><th/></th><th/><th/>
+											</tr>												
+								</tbody>								
+							</table>									
 						</div>
-							
-							<!--END #signup-inner -->
-							</div>
-							
-						<!--END #signup-form -->   
-						</div>
+						
                     </form>
 
         

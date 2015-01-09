@@ -23,8 +23,11 @@ public final class DB {
 private final String url = "jdbc:derby://localhost:1527/SopraDB;user=sopra;password=sopra";
 private Connection conn = null;
 private  Statement stmt = null;
-private final  String Nomtable = "UserDB";
+private final  String Nomtable = "USERDB";
+private final  String RoutesTable = "ROUTES";
 private static int id=0;
+private static int idRoutes=0;
+private int ident=-1;
 
         
 
@@ -50,49 +53,118 @@ public DB() {
 
     //Ajout Database
             
-   public synchronized String AjoutDB(String nom, String prenom, String email,int tel, String commune, int codePostal,String workplace,String HDMatin,String HDSoir,boolean lun,boolean mar,boolean mer,boolean jeu,boolean ven,boolean sam,boolean dim,boolean conducteur,boolean notify,String pass)
+   public synchronized String AjoutDB(String nom, String prenom, String email,int tel, String commune, int codePostal,String workplace,String HDMatin,String HDSoir,boolean lun,boolean mar,boolean mer,boolean jeu,boolean ven,boolean sam,boolean dim,boolean conducteur,boolean notify,String pass,int count)
    {
-       String r="Data";
-       
+       int inserted = 0;
+       String resultRoutes="Insertion";
+       String r="Insertion";
+       String nomConduc=prenom+" "+nom;
        try
        {
            // creates a SQL Statement object in order to execute the SQL insert command
            stmt = conn.createStatement();
            stmt.execute("insert into " + Nomtable + " (ID,Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche,Conducteur,Notify,Password) values (" +id +",'" +nom+ "','" + prenom + "','"+ email +"',"+tel+",'"+commune+"',"+codePostal+",'"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+lun+"','"+mar+"','"+mer+"','"+jeu+"','"+ven+"','"+sam+"','"+dim+"','"+conducteur+"','"+notify+"','"+pass+"')");
+           
+           //insertion des trajets
+            if(lun ==true)
+            {
+              resultRoutes=AjoutRoutesDB(id,commune, codePostal, workplace,nomConduc , "Lundi", tel,conducteur);                  
+              inserted++;
+            }
+            
+            if(mar ==true)
+            {
+              resultRoutes=AjoutRoutesDB(id,commune, codePostal, workplace, nomConduc, "Mardi", tel,conducteur);                  
+              inserted++;
+            }
+            
+            if(mer ==true)
+            {
+             resultRoutes=AjoutRoutesDB(id,commune, codePostal, workplace, nomConduc, "Mercredi", tel,conducteur);                  
+             inserted++;
+            }
+            
+            if(jeu ==true)
+            {
+              resultRoutes=AjoutRoutesDB(id,commune, codePostal, workplace,nomConduc, "Jeudi", tel,conducteur);                  
+              inserted++;
+            }
+            
+            if(ven ==true)
+            {
+              resultRoutes=AjoutRoutesDB(id,commune, codePostal, workplace, nomConduc, "Vendredi", tel,conducteur);                  
+              inserted++;
+            }
+            
+            if(sam ==true)
+            {
+              resultRoutes=AjoutRoutesDB(id,commune, codePostal, workplace, nomConduc, "Samedi", tel,conducteur);                  
+              inserted++;
+            }
+            
+            if(dim ==true)
+            {
+              resultRoutes=AjoutRoutesDB(id,commune, codePostal, workplace, nomConduc, "Dimanche", tel,conducteur);                  
+              inserted++;
+            }
+            
            stmt.close();
-//           +"','"+tel+"','"+commune+"','"+codePostal+"','"+workplace+"','"+HDMatin+"','"+ HDSoir+"','"+jrsAppli+"','"+conducteur+"','"+notify
-//             ,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,DateAppli,Conducteur,Notify
+           if(inserted == count && resultRoutes == "DataRoutes")r="Data";
+           
        }
        catch (SQLException sqlExcept)
        {
-           r=sqlExcept.toString();
+           r="USERDB : "+sqlExcept.toString();
        }
-       System.out.println(r);
+       System.out.println(r+" and "+resultRoutes);
        id++;
        return r;             
    }
-      
-      //Pour cette methode, j'ai aussi besoin d'un id de session pour supprimer toutes les informations de l'utilisateur!!!
-      public synchronized String SuppDB()
-      {
-       String r="Data";
+   
+         //Pour cette methode, j'ai aussi besoin d'un id de session pour supprimer toutes les informations de l'utilisateur!!!
+   public synchronized String SuppDB()
+   {
+     String r="Data";
+     try
+     {
+       // creates a SQL Statement object in order to execute the SQL insert command
+       stmt = conn.createStatement();
+       stmt.execute("delete" + Nomtable + " (ID,Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche,Conducteur,Notify,Password) WHERE ID=id_session");
+       stmt.close();
+     }
+     catch (SQLException sqlExcept)
+     {
+      r=sqlExcept.toString();
+     }
+     System.out.println(r);
+     id--;
+     return r;
+   }
+   
+   public synchronized String AjoutRoutesDB(int idUser, String commune,int codePostal,String workplace, String conducteur, String jour, int tel,Boolean conduc)
+   {
+       String route="DataRoutes";
        
        try
        {
-           // creates a SQL Statement object in order to execute the SQL insert command
-           stmt = conn.createStatement();
-           stmt.execute("delete" + Nomtable + " (ID,Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche,Conducteur,Notify,Password) WHERE ID=id_session");
-           stmt.close();
-
+           if(conduc)
+           {
+             stmt.execute("insert into " + RoutesTable + " (ID,IDUser,Commune,CodePostal,LieuDeTravail,Conducteur,Jour,Tel) values (" +idRoutes +"," +idUser+ ",'" + commune + "',"+ codePostal +",'"+workplace+"','"+conducteur+"','"+jour+"',"+tel+")");
+           }
+           else
+           {
+             stmt.execute("insert into " + RoutesTable + " (ID,IDUser,Commune,CodePostal,LieuDeTravail,Jour,Tel) values (" +idRoutes +"," +idUser+ ",'" + commune + "',"+ codePostal +",'"+workplace+"','"+jour+"',"+tel+")");
+           }           
        }
        catch (SQLException sqlExcept)
        {
-           r=sqlExcept.toString();
+           route="ROUTES " +sqlExcept.toString();
        }
-       System.out.println(r);
-       id--;
-       return r;             
+       System.out.println(route);
+       idRoutes++;
+       return route;             
    }
+    
     
    // prendre des données de la DB
    public String selectData()
@@ -177,19 +249,21 @@ public DB() {
        return r;
    }
    
-    // Verifie si on existe dans la DB
-   public String verifData(String pass)
+ // Verifie si on existe dans la DB
+   public String verifDataE(String pass)
    {
        String r="";
        try
        {
            // creates a SQL Statement object in order to execute the SQL select command
            stmt = conn.createStatement();
-           // the SQL select command will provide a ResultSet containing the query results           
-           ResultSet results = stmt.executeQuery("SELECT * FROM "+Nomtable+" WHERE "+Nomtable+".Password='"+pass+"'");
+           // the SQL select command will provide a ResultSet containing the query results   
+           //===<<<< associer la requette a un user, ce qui na pas encore ete fait >>>>
+           ResultSet results = stmt.executeQuery("SELECT * FROM "+Nomtable+" WHERE ("+Nomtable+".Password='"+pass+"')");
            // the ResultSetMetaData object will provide information about the columns
            // for instance the number of columns, their labels, etc.
            ResultSetMetaData rsmd = results.getMetaData();
+           System.out.println("Results=========="+results);
            int ID = -1;
            while(results.next())
            {               
@@ -197,7 +271,9 @@ public DB() {
            }
            if(ID!=-1)
            {
-                r="voila";
+                r="existe";
+                this.ident=ID;
+                System.out.println("ID========="+ident);
            }
           
            results.close();
@@ -207,31 +283,61 @@ public DB() {
        {
            r=sqlExcept.toString();
        }
+       System.out.println("r1==============="+r);
        return r;
+       
    }
    
-   public String ModifPswDB(String pass)
+   public String ModifPswDB(String pass,String pass1)
    {
        String r="Data";
        try
        {
            // creates a SQL Statement object in order to execute the SQL select command
            stmt = conn.createStatement();
-           int entier;
+           
            // the SQL select command will provide a ResultSet containing the query results           
-           entier = stmt.executeUpdate("UPDATE * FROM "+Nomtable+" WHERE ("+Nomtable+".Password='"+pass+"')");
+           stmt.executeUpdate("UPDATE "+Nomtable+" SET Password='"+pass+"' WHERE ("+Nomtable+".Password='"+pass1+"')");
            // the ResultSetMetaData object will provide information about the columns
            // for instance the number of columns, their labels, etc.
            stmt.close();
+           // the ResultSetMetaData object will provide information about the columns
+           // for instance the number of columns, their labels, etc.
        }
        catch (SQLException sqlExcept)
        {
            r=sqlExcept.toString();
        }
-       System.out.println(r);
+       
+       System.out.println("r2==============="+r);
+       id++;
        return r;
    }
    
+   public String Recherche()
+   {
+       String r="Data";
+      /* try
+       {
+           // creates a SQL Statement object in order to execute the SQL select command
+           stmt = conn.createStatement();
+           
+           // the SQL select command will provide a ResultSet containing the query results           
+           stmt.executeUpdate("UPDATE "+Nomtable+" SET Password='"+pass+"' WHERE ("+Nomtable+".Password='"+pass1+"')");
+           // the ResultSetMetaData object will provide information about the columns
+           // for instance the number of columns, their labels, etc.
+           stmt.close();
+           // the ResultSetMetaData object will provide information about the columns
+           // for instance the number of columns, their labels, etc.
+       }
+       catch (SQLException sqlExcept)
+       {
+           r=sqlExcept.toString();
+       }*/
+
+       id++;
+       return r;
+   }
     
    //fermeture de la connection
    

@@ -36,39 +36,49 @@
                 <p>S'il vous plaît, remplissez les champs ci-dessous en vous assurant de fournir une adresse mail valide 
 	        </p>
                 <form method="POST" action="FormServlet">
-            <label>Nom * </label>
-            <input type="text" name="Nom"><br/>
-            <label>Prénom * </label>
-            <input type="text" name="Prenom"><br/>
-            <label>Mot de Passe * </label>
-            <input type="password" name="Passe"><br/>
-            <label>Email * </label>
-            <input type="email" name="Email"><br/>
-            <label>Telephone </label>
+            <label><h4>Nom *</h4> </label>
+            <input type="text" name="Nom" id="required"><br/>
+            <label><h4>Prénom *</h4> </label>
+            <input type="text" name="Prenom" id="required"><br/>
+            <label><h4>Mot de Passe *</h4> </label>
+            <input type="password" name="Passe" id="required"><br/>
+            <label><h4>Email *</h4> </label>
+            <input type="email" name="Email" ><br/>
+            <label><h4>Telephone</h4></label>
             <input type="text" name="Tel"><br/>
-            <label>Commune *</label>
-            <input type="text" name="Commune"><br/>
-            <label>Code Postal *</label>
-            <input type="text" name="CodePostal"><br/>
-            <label>Lieu de travail *</label>
-            <SELECT name="Workplace">
+            <label><h4>Commune *</h4></label>
+            <input type="text" name="Commune" id="required"><br/>
+            <label><h4>Code Postal *</h4></label>
+            <input type="text" name="CodePostal" id="required"><br/>
+            <label><h4>Lieu de travail *</h4></label>
+            <SELECT name="Workplace" id="required">
                 <OPTION VALUE="BLAGNAC">Blagnac</OPTION>
                 <OPTION VALUE="COLOMIERS">Colomiers</OPTION>
             </SELECT>
             <br/>
-            <label>Heure départ matin *    ex: 11:32:00</label>
-            <input type="time" name="HDMatin"><br/>
-            <label>Heure départ soir   ex: 11:32:00</label>
-            <input type="time" name="HDSoir"><br/>
-            <label>Jours applicables *   ex: 11/12/2000</label>
-            <input type="date" name="JApplicables"><br/>
-            <label>Conducteur </label>
-            <input type="checkbox" name="Conducteur"><br/>
-            <label>Souhaite être notifié: </label>
-            <input type="checkbox" name="Notif"><br/>
+            <label><h4>Heure départ matin*    ex: 11:32</h4></label>
+				<input type="time" name="HDMatin" id="required"><br/>
+            <label><h4>Heure départ soir    ex: 11:32 </h4></label>
+				<input type="time" name="HDSoir"><br/>			
+            <label><h4>Jours applicables</h4></label>
+			
+			<div class="header-main-block clearfix">
+				<div class="simple-round-container">
+				<label class="checkbox">Lun<input type="checkbox" name="Lundi"></label><br/>
+				<label class="checkbox">Mar<input type="checkbox" name="Mardi"></label><br/>
+				<label class="checkbox">Merr<input type="checkbox" name="Mercredi"></label><br/>
+				<label class="checkbox">Jeu<input type="checkbox" name="Jeudi"></label><br/>
+				<label class="checkbox">Ven<input type="checkbox" name="Vendredi"></label><br/>
+				<label class="checkbox">Sam<input type="checkbox" name="Samedi"></label><br/>
+				<label class="checkbox">Dim<input type="checkbox" name="Dimanche"></label><br/>
+                </div>
+            </div>			
+            <label class="checkbox"><h4>Conducteur </h4><input type="checkbox" name="Conducteur"></label><br/>
+            <label class="checkbox"><h4>Souhaite être notifié:</h4><input type="checkbox" name="Notif"></label><br/>
             
             <button id="submit" type="submit">Submit</button>
         </form>
+		
                 
         <div id="required">
 	<p>* Champs requis<br/>
