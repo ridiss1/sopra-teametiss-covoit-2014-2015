@@ -28,7 +28,7 @@ private final  String RoutesTable = "ROUTES";
 private static int id=0;
 private static int idRoutes=0;
 private int ident=-1;
-
+private Boolean rechercheAv=false;
         
 
 public DB() {
@@ -164,7 +164,8 @@ public DB() {
        idRoutes++;
        return route;             
    }
-    
+   
+
     
    // prendre des données de la DB
    public String selectData()
@@ -250,6 +251,60 @@ public DB() {
    }
    
  // Verifie si on existe dans la DB
+   public String verifData(String pass)
+   {
+     String r="";
+     try
+     {
+        // creates a SQL Statement object in order to execute the SQL select command
+        stmt = conn.createStatement();
+        // the SQL select command will provide a ResultSet containing the query results
+        ResultSet results = stmt.executeQuery("SELECT * FROM "+Nomtable+" WHERE "+Nomtable+".Password='"+pass+"'");
+        // the ResultSetMetaData object will provide information about the columns
+        // for instance the number of columns, their labels, etc.
+        ResultSetMetaData rsmd = results.getMetaData();
+        int ID = -1;
+        while(results.next())
+        {
+            ID = results.getInt(results.findColumn("ID"));
+        }
+        if(ID!=-1)
+        {
+             r="voila";
+        }
+        results.close();
+        stmt.close();
+     }
+     catch (SQLException sqlExcept)
+     {
+        r=sqlExcept.toString();
+     }
+    return r;
+  }
+	
+  public String ModifPswDB(String pass)
+  {
+    String r="Data";
+    try
+    {
+        // creates a SQL Statement object in order to execute the SQL select command
+        stmt = conn.createStatement();
+        int entier;
+        // the SQL select command will provide a ResultSet containing the query results
+        entier = stmt.executeUpdate("UPDATE * FROM "+Nomtable+" WHERE ("+Nomtable+".Password='"+pass+"')");
+        // the ResultSetMetaData object will provide information about the columns
+        // for instance the number of columns, their labels, etc.
+        stmt.close();
+    }
+    catch (SQLException sqlExcept)
+    {
+        r=sqlExcept.toString();
+    }
+    System.out.println(r);
+    return r;
+  }
+  
+ // Verifie si on existe dans la DB
    public String verifDataE(String pass)
    {
        String r="";
@@ -314,30 +369,64 @@ public DB() {
        return r;
    }
    
-   public String Recherche()
+    public String Recherche(String conducteur,String commune,int codePostal,String workplace)
    {
-       String r="Data";
-      /* try
+       String avancee="Vide";
+      try
        {
            // creates a SQL Statement object in order to execute the SQL select command
            stmt = conn.createStatement();
+           // the SQL select command will provide a ResultSet containing the query results   
+           ResultSet results = stmt.executeQuery("SELECT * FROM "+RoutesTable+" WHERE ("+RoutesTable+".Conducteur='"+conducteur+"') AND ("+RoutesTable+".Commune='"+commune+"') AND ("+RoutesTable+".CodePostal ="+codePostal+") AND ("+RoutesTable+".LieuDeTravail ='"+workplace+"')");
+           // the ResultSetMetaData object will provide information about the columns
+           // for instance the number of columns, their labels, etc.
+           ResultSetMetaData rsmd = results.getMetaData();
+           System.out.println("Results=========="+results);
            
-           // the SQL select command will provide a ResultSet containing the query results           
-           stmt.executeUpdate("UPDATE "+Nomtable+" SET Password='"+pass+"' WHERE ("+Nomtable+".Password='"+pass1+"')");
-           // the ResultSetMetaData object will provide information about the columns
-           // for instance the number of columns, their labels, etc.
+           /*/on place le curseur sur le dernier tuple
+           results.last();
+           //on récupère le numéro de la ligne
+           int nombreLignes = results.getRow();
+           //on repace le curseur avant la première ligne
+           results.beforeFirst();*/
+           
+           /*if(nombreLignes > 0)
+           {*/
+               int nbr = 0;
+                avancee="<tr class='odd'><td>";
+                while(results.next())
+                {
+                    // the name and age values are retrieved from the appropiate column
+                    String conducteurDB = results.getString(results.findColumn("Conducteur"));
+                    String communeDB = results.getString(results.findColumn("Commune"));
+                    int codePostalDB = results.getInt(results.findColumn("CodePostal"));
+                    String workplaceDB = results.getString(results.findColumn("LieuDeTravail"));
+                    int telDB = results.getInt(results.findColumn("Tel"));
+                    String jourDB = results.getString(results.findColumn("Jour"));
+                    avancee+=communeDB+ "</td><th/><th/></th><th/><th/><td>"+workplaceDB+"</td><th/><th/></th><th/><th/><td >"+conducteurDB+"</td><th/><th/></th><th/><th/><td >"+telDB+"</td><th/><th/></th><th/><th/><td >"+jourDB+"</td><th/><th/></th><th/><th/><td align='center'><a style='background-color:#26ceff;' href=\"https://www.google.fr/maps/dir/"+communeDB+" " + codePostalDB+"/" + workplaceDB+"/\">Cliquez</a></td><th/><th/></th><th/><th/></tr>";
+                    nbr++;
+                    //if(nbr < nombreLignes)avancee+="<tr class='odd'>";
+                    avancee+="<tr class='odd'><td>";
+                }
+                if(nbr > 0)
+                {
+                    avancee+="</tr>";
+                    rechercheAv=true;
+                }
+                
+           //}
+           results.close();
            stmt.close();
-           // the ResultSetMetaData object will provide information about the columns
-           // for instance the number of columns, their labels, etc.
        }
        catch (SQLException sqlExcept)
        {
-           r=sqlExcept.toString();
-       }*/
-
-       id++;
-       return r;
+           avancee=sqlExcept.toString();
+       }
+       System.out.println("r1=============== Resultat non vide = "+rechercheAv);
+       System.out.println("r1==============="+avancee);
+       return avancee;
    }
+   
     
    //fermeture de la connection
    
@@ -355,6 +444,13 @@ public DB() {
            System.out.println("SQLException in DB class="+sqlExcept);
        }
    }
+
+    /**
+     * @return the rechercheAv
+     */
+    public Boolean getRechercheAv() {
+        return rechercheAv;
+    }
 
  
         

@@ -36,20 +36,20 @@ public class AvanceServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String name = request.getParameter("Nom");
             String com=request.getParameter("Commune");
-            String codP = request.getParameter("CodePostal");
+            int CodP = Integer.parseInt(request.getParameter("CodePostal"));
             String work=request.getParameter("Workplace");
 
-                String S=data.Recherche();
-                if("Data".equals(S))
+                String trajets=data.Recherche(name,com,CodP,work);
+                if(data.getRechercheAv())
                 {
-                    RequestDispatcher rd = request.getRequestDispatcher("result.html");
-                    rd.include(request, response);
+                    request.setAttribute("trajets", trajets); // This will be available as ${trajets}
+                    RequestDispatcher rd = request.getRequestDispatcher("result.jsp");
+                    rd.forward(request, response); 
                 }
                 else
                 {
                     RequestDispatcher rd = request.getRequestDispatcher("noresult.html");
                     rd.include(request, response);
-                    
                 }           
         }
     }

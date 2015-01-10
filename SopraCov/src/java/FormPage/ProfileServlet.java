@@ -35,31 +35,30 @@ public class ProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String ancien = request.getParameter("Ancien");
-            String nouveau=request.getParameter("New");
+          
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ProfileServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ProfileServlet For Management's Profile at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+
+            String pass=request.getParameter("Passe");
+            String secure=database.verifData(pass);
             
-            if(ancien.equals(nouveau))
-            {
-                RequestDispatcher rd = request.getRequestDispatcher("pswderror.html");
-                rd.include(request, response);                
-            }
-            else
-            {
-              String secure=database.verifDataE(ancien);            
             //Si l'utilisateur entre un mot de passe deja utilisé
-                if("existe".equals(secure))
-                {
-                    // on insere son nouveau mot de passe dans la base de donnée
-                    String ex=database.ModifPswDB(nouveau,ancien);
-                    RequestDispatcher rd = request.getRequestDispatcher("client.html");
-                    rd.include(request, response);
-                }
-                else
-                {
-                    RequestDispatcher rd = request.getRequestDispatcher("pswderror.html");
-                    rd.include(request, response);
-                } 
-            }           
+            if("voila".equals(secure)){
+                RequestDispatcher rd = request.getRequestDispatcher("pswderror.html");
+                rd.include(request, response);
+                
+            }
+            else{
+                // on insere son nouveau mot de passe dans la base de donnée
+                database.ModifPswDB(pass);
+            }
         }
     }
 

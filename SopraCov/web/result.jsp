@@ -1,4 +1,10 @@
+<%-- 
+    Document   : result
+    Created on : 10 janv. 2015, 10:49:38
+    Author     : Jean
+--%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,12 +21,14 @@
         <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Oleo+Script:400,700'>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
+		
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-
+		<!---------- CSS ------------>
+	<link rel="stylesheet" type="text/css" href="./css2/style2.css">
     </head>
 
     <body>
@@ -33,15 +41,28 @@
                     <img src="assets/img/iphone.png" alt="">
                 </div>
                 <div class="register span6">
-                    <p>Modifiez votre mot de passe en vous assurant de ne pas redonner l'ancien. 
-                    </p>
                     <form method="POST" action="ProfileServlet">
             
-                        <label>Mot de Passe * </label>
-                        <input type="password" name="Passe"><br/>
-            
-            
-                        <button id="submit" type="submit">Submit</button>
+                       <div>
+							<table id='results'>
+								<thead>
+									<tr id='header_row'>
+										<th>Domicile</th><th/><th/></th><th/><th/>
+										<th>Lieu de travail</th><th/><th/></th><th/><th/>
+										<th>Conducteur</th><th/><th/></th><th/><th/>
+										<th>Numero</th><th/><th/></th><th/><th/>
+                                                                                <th>Jour</th><th/><th/></th><th/><th/>
+										<th>Details</th><th/><th/></th><th/><th/>
+									</tr>
+								</thead>
+
+								<tbody id='row_1'> ${trajets} </tbody>
+
+							</table>
+						</div>
+						<p><br/>
+							<a href="client.html">Retour</a><span class="fontawesome-arrow-right"></span>
+						</p> 
                     </form>
 
         
@@ -58,4 +79,3 @@
     </body>
 
 </html>
-
