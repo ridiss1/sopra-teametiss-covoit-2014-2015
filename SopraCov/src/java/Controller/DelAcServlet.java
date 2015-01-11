@@ -36,23 +36,25 @@ public class DelAcServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DelAcServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Delete Account: DelAcServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            
+        try (PrintWriter out = response.getWriter()) {   
+            String name = request.getParameter("Nom");
+            String Prenom = request.getParameter("Prenom");
+            String r=database.SuppDB(name,Prenom);
+            if("Data".equals(r))
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("confirmSupp.html");
+                rd.include(request, response);   
+            }
+            else
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("errorSup.html");
+                rd.include(request, response);  
+            }
             
             
         }
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -65,11 +67,9 @@ public class DelAcServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        database.SuppDB();
-        RequestDispatcher rd = request.getRequestDispatcher("confirmSupp.html");
-        rd.include(request, response);
+        processRequest(request, response);
     }
-    
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -83,7 +83,7 @@ public class DelAcServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
     }
-    
+
     /**
      * Returns a short description of the servlet.
      *
@@ -93,5 +93,5 @@ public class DelAcServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+
 }

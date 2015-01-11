@@ -51,8 +51,7 @@
                             <a href="Clientconnecter.jsp">${sessionScope.Name}</a>
                             <ul>
                                 <li><a  href="pswdregister.html">Modifier mot de passe</a></li>
-                                <li><a  href="pswdregister.html">Supprimer le compte</a></li>
-                                <li><a  href="pswdregister.html">MAsJ profil</a></li>
+                                <li><a  href="profil.html">Supprimer le compte</a></li>                                
                                 <li><a href="<%=request.getContextPath()+"/DeconnxionServlet"%>">Deconnexion</a></li>
                             </ul>
                         </li>
@@ -61,13 +60,13 @@
                         </c:if>
                 <form method="POST" action="AvanceServlet">
                     
-            <label><h4>Nom Conducteur: Prénom et Nom</h4> </label> 
+            <label><h4>Nom Conducteur ex: Prénom Nom</h4> </label> 
             <input type="text" name="Nom"><br/>            
-            <label><h4>Commune </h4></label>
+            <label><h4>Commune* </h4></label>
             <input type="text" name="Commune"><br/>
-            <label><h4>Code Postal </h4></label>
+            <label><h4>Code Postal* </h4></label>
             <input type="text" name="CodePostal"><br/>
-            <label><h4>Lieu de travail </h4></label>
+            <label><h4>Lieu de travail* </h4></label>
             <SELECT name="Workplace">
                 <OPTION VALUE="BLAGNAC">Blagnac</OPTION>
                 <OPTION VALUE="COLOMIERS">Colomiers</OPTION>           

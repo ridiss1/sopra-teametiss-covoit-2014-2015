@@ -22,10 +22,10 @@ import java.util.logging.Logger;
  */
 public final class DB {
     
-    private final String url = "jdbc:derby://localhost:1527/SOPRADB;user=sorpa;password=sopra";
+    private final String url = "jdbc:derby://localhost:1527/SopraDB;user=sopra;password=sopra";
     private Connection conn = null;
     private Statement stmt = null;
-    private final String Nomtable = "USERDB";
+    private final String Nomtable = "UserDB";
     private final String RoutesTable = "ROUTES";
     private static int id = 0;
     private static int idRoutes = 0;
@@ -109,27 +109,38 @@ public final class DB {
     }
     
     //Pour cette methode, j'ai aussi besoin d'un id de session pour supprimer toutes les informations de l'utilisateur!!!
-    public synchronized String SuppDB() {
-        String r = "Data";
-        try {
-            // creates a SQL Statement object in order to execute the SQL insert command
-            stmt = conn.createStatement();
-            stmt.execute("delete" + Nomtable + " (ID,Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche,Conducteur,Notify,Password) WHERE ID=id_session");
-            stmt.close();
-        } catch (SQLException sqlExcept) {
-            r = sqlExcept.toString();
+    public synchronized String SuppDB(String nom,String prenom)
+   {
+     String r="Data";
+     try
+     {
+       // creates a SQL Statement object in order to execute the SQL insert command
+       stmt = conn.createStatement();
+       ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Nom='" + nom + "') AND (" + Nomtable + ".Password='" + prenom + "')");
+       int id_session=0;
+        while (results.next()) {
+            id_session = results.getInt(results.findColumn("ID"));                  
         }
-        System.out.println(r);
-        id--;
-        return r;
-    }
+       
+       stmt.execute("DELETE FROM " + RoutesTable + " WHERE CAST("+RoutesTable+".IDUser AS INTEGER)="+id_session);
+       stmt.execute("DELETE FROM " + Nomtable + " WHERE CAST("+Nomtable+".ID AS INTEGER)="+id_session);
+       stmt.close();
+     }
+     catch (SQLException sqlExcept)
+     {
+      r=sqlExcept.toString();
+     }
+     System.out.println("supression=================="+r);
+     id--;
+     return r;
+   }
     
     public synchronized String AjoutRoutesDB(int idUser, String commune, int codePostal, String workplace, String conducteur, String jour, int tel, Boolean conduc) {
         String route = "DataRoutes";
         
         try {
             if (conduc) {
-                stmt.execute("insert into " + RoutesTable + " (ID,IDUser,Commune,CodePostal,LieuDeTravail,Conducteur,Jour,Tel,Password) values (" + idRoutes + "," + idUser + ",'" + commune + "'," + codePostal + ",'" + workplace + "','" + conducteur + "','" + jour + "'," + tel + ")");
+                stmt.execute("insert into " + RoutesTable + " (ID,IDUser,Commune,CodePostal,LieuDeTravail,Conducteur,Jour,Tel) values (" + idRoutes + "," + idUser + ",'" + commune + "'," + codePostal + ",'" + workplace + "','" + conducteur + "','" + jour + "'," + tel + ")");
             } else {
                 stmt.execute("insert into " + RoutesTable + " (ID,IDUser,Commune,CodePostal,LieuDeTravail,Jour,Tel) values (" + idRoutes + "," + idUser + ",'" + commune + "'," + codePostal + ",'" + workplace + "','" + jour + "'," + tel + ")");
             }
@@ -294,16 +305,25 @@ public final class DB {
     public String Recherche(String conducteur, String commune, int codePostal, String workplace) {
         String avancee = "Vide";
         rechercheAv = false;
+        String vide="";
         try {
             // creates a SQL Statement object in order to execute the SQL select command
             stmt = conn.createStatement();
             // the SQL select command will provide a ResultSet containing the query results
-            ResultSet results = stmt.executeQuery("SELECT * FROM " + RoutesTable + " WHERE (" + RoutesTable + ".Conducteur='" + conducteur + "') AND (" + RoutesTable + ".Commune='" + commune + "') AND (" + RoutesTable + ".CodePostal =" + codePostal + ") AND (" + RoutesTable + ".LieuDeTravail ='" + workplace + "')");
+            ResultSet results;
+           // the SQL select command will provide a ResultSet containing the query results 
+           if(conducteur.equals(vide))
+           {
+              results = stmt.executeQuery("SELECT * FROM "+RoutesTable+" WHERE ("+RoutesTable+".Commune='"+commune+"') AND ("+RoutesTable+".CodePostal ="+codePostal+") AND ("+RoutesTable+".LieuDeTravail ='"+workplace+"')"); 
+           }
+           else
+           {
+              results = stmt.executeQuery("SELECT * FROM "+RoutesTable+" WHERE ("+RoutesTable+".Conducteur='"+conducteur+"') AND ("+RoutesTable+".Commune='"+commune+"') AND ("+RoutesTable+".CodePostal ="+codePostal+") AND ("+RoutesTable+".LieuDeTravail ='"+workplace+"')");  
+           }     
             // the ResultSetMetaData object will provide information about the columns
-            // for instance the number of columns, their labels, etc.
-            ResultSetMetaData rsmd = results.getMetaData();
-            System.out.println("Results==========" + results);
-            
+           // for instance the number of columns, their labels, etc.
+           ResultSetMetaData rsmd = results.getMetaData();
+           System.out.println("Results=========="+results);
             /*/on place le curseur sur le dernier tuple
             results.last();
             //on récupère le numéro de la ligne
@@ -314,15 +334,29 @@ public final class DB {
             {*/
             int nbr = 0;
             avancee = "<tr class='odd'><td>";
+            String conducteurDB,ici;
             while (results.next()) {
                 // the name and age values are retrieved from the appropiate column
-                String conducteurDB = results.getString(results.findColumn("Conducteur"));
+                    conducteurDB = results.getString(results.findColumn("Conducteur"));
+                    System.out.println("***************"+conducteurDB+"---");
+                    String s="null";
+                    String s1=""+conducteurDB;
+                    if(s.equals(s1))
+                    {
+                        ici="-";
+                        System.out.println("ici1===");
+                    }
+                    else
+                    {
+                        ici=conducteurDB;
+                        System.out.println("ici2====");
+                    }
                 String communeDB = results.getString(results.findColumn("Commune"));
                 int codePostalDB = results.getInt(results.findColumn("CodePostal"));
                 String workplaceDB = results.getString(results.findColumn("LieuDeTravail"));
                 int telDB = results.getInt(results.findColumn("Tel"));
                 String jourDB = results.getString(results.findColumn("Jour"));
-                avancee += communeDB + "</td><th/><th/></th><th/><th/><td>" + workplaceDB + "</td><th/><th/></th><th/><th/><td >" + conducteurDB + "</td><th/><th/></th><th/><th/><td >" + telDB + "</td><th/><th/></th><th/><th/><td >" + jourDB + "</td><th/><th/></th><th/><th/><td align='center'><a style='background-color:#26ceff;' href=\"https://www.google.fr/maps/dir/" + communeDB + " " + codePostalDB + "/" + workplaceDB + "/\">Cliquez</a></td><th/><th/></th><th/><th/></tr>";
+                avancee += communeDB + "</td><th/><th/></th><th/><th/><td>" + workplaceDB + "</td><th/><th/></th><th/><th/><td >" + ici + "</td><th/><th/></th><th/><th/><td >" + telDB + "</td><th/><th/></th><th/><th/><td >" + jourDB + "</td><th/><th/></th><th/><th/><td align='center'><a style='background-color:#26ceff;' href=\"https://www.google.fr/maps/dir/" + communeDB + " " + codePostalDB + "/" + workplaceDB + "/\">Cliquez</a></td><th/><th/></th><th/><th/></tr>";
                 nbr++;
                 //if(nbr < nombreLignes)avancee+="<tr class='odd'>";
                 avancee += "<tr class='odd'><td>";
@@ -364,15 +398,29 @@ public final class DB {
             
             int nbr = 0;
             classic = "<tr class='odd'><td>";
+            String conducteurDB,ici;
             while (results.next()) {
                 // the name and age values are retrieved from the appropiate column
-                String conducteurDB = results.getString(results.findColumn("Conducteur"));
+                conducteurDB = results.getString(results.findColumn("Conducteur"));
+                System.out.println("***************"+conducteurDB+"---");
+                    String s="null";
+                    String s1=""+conducteurDB;
+                    if(s.equals(s1))
+                    {
+                        ici="-";
+                        System.out.println("ici1===");
+                    }
+                    else
+                    {
+                        ici=conducteurDB;
+                        System.out.println("ici2====");
+                    }
                 String communeDB = results.getString(results.findColumn("Commune"));
                 int codePostalDB = results.getInt(results.findColumn("CodePostal"));
                 String workplaceDB = results.getString(results.findColumn("LieuDeTravail"));
                 int telDB = results.getInt(results.findColumn("Tel"));
                 String jourDB = results.getString(results.findColumn("Jour"));
-                classic += communeDB + "</td><th/><th/></th><th/><th/><td>" + workplaceDB + "</td><th/><th/></th><th/><th/><td >" + conducteurDB + "</td><th/><th/></th><th/><th/><td >" + telDB + "</td><th/><th/></th><th/><th/><td >" + jourDB + "</td><th/><th/></th><th/><th/><td align='center'><a style='background-color:#26ceff;' href=\"https://www.google.fr/maps/dir/" + communeDB + " " + codePostalDB + "/" + workplaceDB + "/\">Cliquez</a></td><th/><th/></th><th/><th/></tr>";
+                classic += communeDB + "</td><th/><th/></th><th/><th/><td>" + workplaceDB + "</td><th/><th/></th><th/><th/><td >" + ici + "</td><th/><th/></th><th/><th/><td >" + telDB + "</td><th/><th/></th><th/><th/><td >" + jourDB + "</td><th/><th/></th><th/><th/><td align='center'><a style='background-color:#26ceff;' href=\"https://www.google.fr/maps/dir/" + communeDB + " " + codePostalDB + "/" + workplaceDB + "/\">Cliquez</a></td><th/><th/></th><th/><th/></tr>";
                 nbr++;
                 //if(nbr < nombreLignes)avancee+="<tr class='odd'>";
                 classic += "<tr class='odd'><td>";

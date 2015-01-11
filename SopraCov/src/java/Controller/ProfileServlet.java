@@ -36,7 +36,31 @@ public class ProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-                       
+            String ancien = request.getParameter("Ancien");
+            String nouveau=request.getParameter("New");
+            
+            if(ancien.equals(nouveau))
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("pswderror.html");
+                rd.include(request, response);                
+            }
+            else
+            {
+              String secure=database.verifDataE(ancien);            
+            //Si l'utilisateur entre un mot de passe deja utilisé
+                if("existe".equals(secure))
+                {
+                    // on insere son nouveau mot de passe dans la base de donnée
+                    String ex=database.ModifPswDB(nouveau,ancien);
+                    RequestDispatcher rd = request.getRequestDispatcher("Clientconnecter.jsp");
+                    rd.include(request, response);
+                }
+                else
+                {
+                    RequestDispatcher rd = request.getRequestDispatcher("pswderror.html");
+                    rd.include(request, response);
+                } 
+            }           
         }
     }
 

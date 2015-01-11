@@ -97,6 +97,7 @@ public class Utilisateur {
                 //String s=data.verifieLaDate(name,Prenom);
                 // ICI je veux faire un test pour vérifier que le date rentrée est supérieure ou égale à la date courante
                 String s="ok";
+                EmailSender x=new EmailSender(Email,Prenom);
                 if("ok".equals(s))
                 {
                     RequestDispatcher rd = request.getRequestDispatcher("Clientconnecters.jsp");

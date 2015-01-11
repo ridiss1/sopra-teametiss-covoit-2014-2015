@@ -4,7 +4,7 @@
 
     <head>
 
-        <meta charset="UTF-8">
+        <meta charset="utf-8">
         <title>SopraCov</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="">
@@ -15,7 +15,6 @@
         <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Oleo+Script:400,700'>
         <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
-		
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -35,14 +34,22 @@
                     <img src="assets/img/iphone.png" alt="">
                 </div>
                 <div class="register span6">
-                    <form method="POST" action="ProfileServlet">
-            
-                       <div>
-		       <label><h4>Désolé Aucun trajet n'a été trouvé.</h4></label>
-		      </div>
-						<p><br/>
-							<a href="Clientconnecter.jsp">Retour</a><span class="fontawesome-arrow-right"></span>
-						</p>
+                    <p><h3>Merci de remplir ces deux champs et de confirmer la suppression du compte.</h3>
+                    </p>
+                    <form method="POST" action="DelAcServlet">	
+						<label><h4>Nom *</h4> </label>
+						<input type="text" name="Nom" id="required"><br/>
+						<label><h4>Prénom *</h4> </label>
+						<input type="text" name="Prenom" id="required"><br/>
+                        <button id="submit" type="submit">Valider</button>						
+                    </form>
+						</div>
+							
+							<!--END #signup-inner -->
+							</div>
+							
+						<!--END #signup-form -->   
+						</div>
                     </form>
 
         
