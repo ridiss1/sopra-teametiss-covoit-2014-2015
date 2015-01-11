@@ -1,3 +1,10 @@
+<%-- 
+    Document   : conxion
+    Created on : 10 janv. 2015, 07:49:11
+    Author     : Ridiss
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -31,6 +38,8 @@
 
             <p><span class="fontawesome-user"></span><input type="text" name="Nom" value="Identifiant" onBlur="if(this.value == '') this.value = 'Identifiant'" onFocus="if(this.value == 'Identifiant') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
             <p><span class="fontawesome-lock"></span><input type="password"  name="Passe" value="Password" onBlur="if(this.value == '') this.value = 'Password'" onFocus="if(this.value == 'Password') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
+                
+                
             <p><input type="submit" value="Se connecter"></p>
 
           </fieldset>
@@ -45,4 +54,4 @@
 
 </body>
 
-</html>
+</html>>

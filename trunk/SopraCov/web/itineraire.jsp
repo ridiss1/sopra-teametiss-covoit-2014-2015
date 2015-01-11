@@ -74,7 +74,7 @@
 									</tr>
 								</thead>
 
-								<tbody id='row_1'> ${trajets} </tbody>
+								<tbody id='row_1'> ${trajetsClass} </tbody>
 
 							</table>
 						</div>
