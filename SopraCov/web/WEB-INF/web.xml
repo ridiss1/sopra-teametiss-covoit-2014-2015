@@ -2,11 +2,19 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>FormServlet</servlet-name>
-        <servlet-class>FormPage.FormServlet</servlet-class>
+        <servlet-class>Controller.FormServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AvanceServlet</servlet-name>
-        <servlet-class>FormPage.AvanceServlet</servlet-class>
+        <servlet-class>Controller.AvanceServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeconnxionServlet</servlet-name>
+        <servlet-class>Controller.DeconnxionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ClassicServlet</servlet-name>
+        <servlet-class>Controller.ClassicServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FormServlet</servlet-name>
@@ -14,7 +22,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>LogServlet</servlet-name>
-        <servlet-class>FormPage.LogServlet</servlet-class>
+        <servlet-class>Controller.LogServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LogServlet</servlet-name>
@@ -22,20 +30,27 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>ProfileServlet</servlet-name>
-        <servlet-class>FormPage.ProfileServlet</servlet-class>
+        <servlet-class>Controller.ProfileServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/ProfileServlet</url-pattern>
-    </servlet-mapping>    
-    
+    </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AvanceServlet</servlet-name>
         <url-pattern>/AvanceServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeconnxionServlet</servlet-name>
+        <url-pattern>/DeconnxionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClassicServlet</servlet-name>
+        <url-pattern>/ClassicServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    </web-app>
+</web-app>
