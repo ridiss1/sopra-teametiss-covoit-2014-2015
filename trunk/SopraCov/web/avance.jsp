@@ -44,11 +44,11 @@
                      <%-- Vérification de la présence d'un objet utilisateur en session --%>
                     <c:if test="${!empty sessionScope.Name}">
                         <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                        <span> <ul id="menu">
+                        <span class="span6"> <ul id="menu">
                         
                                      <li>
                         
-                            <a href="Clientconnecter.jsp">${sessionScope.Name}</a>
+                            <a href="#">${sessionScope.Name}</a>
                             <ul>
                                 <li><a  href="pswdregister.html">Modifier mot de passe</a></li>
                                 <li><a  href="profil.html">Supprimer le compte</a></li>                                

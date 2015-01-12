@@ -44,11 +44,11 @@
                     <%-- Vérification de la présence d'un objet utilisateur en session --%>
                     <c:if test="${!empty sessionScope.Name}">
                         <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                        <span> <ul id="menu">
+                        <span > <ul id="menu">
                         
                                      <li>
                         
-                            <a href="Clientconnecter.jsp">${sessionScope.Name}</a>
+                            <a href="#">${sessionScope.Name}</a>
                             <ul>
                                 <li><a  href="pswdregister.html">Modifier mot de passe</a></li>
                                 <li><a  href="profil.html">Supprimer le compte</a></li>
@@ -62,13 +62,13 @@
                         
                         <!--BEGIN #subscribe-inner -->
                         <div id="signup-inner">			
-                            <span><a class="btn-2action" href="<%=request.getContextPath()+"/ClassicServlet"%>">Recherche classique</a></span><span class="fontawesome-arrow-right"></span>
+                            <span class="span"><a class="btn-2action" href="<%=request.getContextPath()+"/ClassicServlet"%>">Recherche classique</a></span><span class="fontawesome-arrow-right"></span>
                                 
-                                <span class="btn-separator">ou </span>
-                                <span> <a class="btn-edition" href="avance.jsp">Recherche Avancee</a></span><span class="fontawesome-arrow-right"></span>
+                                <span class="span">ou </span>
+                                <span class="span"> <a class="btn-edition" href="avance.jsp">Recherche Avancee</a></span><span class="fontawesome-arrow-right"></span>
                                 
-                          
-                                <p><h3>Recherche d'itineraires</h3></p><br/><tr/> 			
+                                <br><br>
+                                <span > <p><h3>Recherche d'itineraires</h3></p><br/><tr/> </span>			
                         </div>
                         <table>
                             <tr>

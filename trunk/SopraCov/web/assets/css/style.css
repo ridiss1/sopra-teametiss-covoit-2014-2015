@@ -69,7 +69,8 @@ a:hover { text-decoration: none; }
 /* ----- Registration Form ----- */
 
 .register form {
-    padding: 20px 50px 40px 50px;
+    
+    padding: 20px 50px 40px 10px;
     background: #f8f8f8 url(../img/pattern.jpg) left top repeat;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
@@ -91,7 +92,7 @@ a:hover { text-decoration: none; }
 }
 
 .register form input {
-    width: 95%;
+    width: 200%;
     height: 30px;
     background: #fcfcfc;
     border: 1px solid #ddd;
@@ -330,7 +331,7 @@ display: inline-block;
 
 #menu /* Ensemble du menu */
 { 
-        padding: 0px 80% 5%;
+        padding: 0px 60% 3%;
         font-weight : bold; /* on met le texte en gras */
         font-family : Arial; /* on utilise Arial, c'est plus beau ^^ */
         font-size : 12px; /* hauteur du texte : 12 pixels */
