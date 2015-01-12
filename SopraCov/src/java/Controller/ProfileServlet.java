@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,6 +37,8 @@ public class ProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            HttpSession session = request.getSession();
+            String name = (String) session.getAttribute("Name");
             String ancien = request.getParameter("Ancien");
             String nouveau=request.getParameter("New");
             
@@ -46,9 +49,9 @@ public class ProfileServlet extends HttpServlet {
             }
             else
             {
-              String secure=database.verifDataE(ancien);            
+              String secure=database.verifData(name,ancien);            
             //Si l'utilisateur entre un mot de passe deja utilisé
-                if("existe".equals(secure))
+                if("voila".equals(secure))
                 {
                     // on insere son nouveau mot de passe dans la base de donnée
                     String ex=database.ModifPswDB(nouveau,ancien);

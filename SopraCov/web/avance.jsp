@@ -50,8 +50,8 @@
                         
                             <a href="#">${sessionScope.Name}</a>
                             <ul>
-                                <li><a  href="pswdregister.html">Modifier mot de passe</a></li>
-                                <li><a  href="profil.html">Supprimer le compte</a></li>                                
+                                <li><a  href="pswdregister.jsp">Modifier mot de passe</a></li>
+                                <li><a  href="profil.jsp">Supprimer le compte</a></li>                                
                                 <li><a href="<%=request.getContextPath()+"/DeconnxionServlet"%>">Deconnexion</a></li>
                             </ul>
                         </li>
