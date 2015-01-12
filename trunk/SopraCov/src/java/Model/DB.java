@@ -21,8 +21,9 @@ import java.util.logging.Logger;
  * @author Ridiss
  */
 public final class DB {
-    
-    private final String url = "jdbc:derby://localhost:1527/SOPRADB;user=sorpa;password=sopra";
+
+        
+    private final String url = "jdbc:derby://localhost:1527/SopraDB;user=sopra;password=sopra";
     private Connection conn = null;
     private Statement stmt = null;
     private final String Nomtable = "UserDB";
@@ -57,6 +58,8 @@ public final class DB {
         try {
             // creates a SQL Statement object in order to execute the SQL insert command
             stmt = conn.createStatement();
+            
+			
             stmt.execute("insert into " + Nomtable + " (ID,Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche,Conducteur,Notify,Password) values (" + id + ",'" + nom + "','" + prenom + "','" + email + "'," + tel + ",'" + commune + "'," + codePostal + ",'" + workplace + "','" + HDMatin + "','" + HDSoir + "','" + lun + "','" + mar + "','" + mer + "','" + jeu + "','" + ven + "','" + sam + "','" + dim + "','" + conducteur + "','" + notify + "','" + pass + "')");
             
             //insertion des trajets
@@ -109,14 +112,14 @@ public final class DB {
     }
     
     //Pour cette methode, j'ai aussi besoin d'un id de session pour supprimer toutes les informations de l'utilisateur!!!
-    public synchronized String SuppDB(String nom,String prenom)
+    public synchronized String SuppDB(String nom,String pass)
    {
      String r="Data";
      try
      {
        // creates a SQL Statement object in order to execute the SQL insert command
        stmt = conn.createStatement();
-       ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Nom='" + nom + "') AND (" + Nomtable + ".Password='" + prenom + "')");
+       ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Nom='" + nom + "') AND (" + Nomtable + ".Password='" + pass + "')");
        int id_session=0;
         while (results.next()) {
             id_session = results.getInt(results.findColumn("ID"));                  
@@ -210,12 +213,12 @@ public final class DB {
                 // for instance the number of columns, their labels, etc.
                 ResultSetMetaData rsmd = results.getMetaData();
                 System.out.println("le res"+results);
-                int ID = -1;
+                int ID = -5;
                 while (results.next()) {
                     ID = results.getInt(results.findColumn("ID"));
                     System.out.println("le id="+ID);
                 }
-                if (ID != -1) {
+                if (ID != -5) {
                     r = "voila";
                 }
             }
@@ -459,6 +462,13 @@ public final class DB {
      */
     public Boolean getRechercheAv() {
         return rechercheAv;
+    }
+    
+    /**
+     * @param aId the id to set
+     */
+    public static void setId(int aId) {
+        id = aId;
     }
     
     /**

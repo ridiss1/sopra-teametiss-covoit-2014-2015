@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,9 +37,44 @@ public class DelAcServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {   
-            
-            
+        try (PrintWriter out = response.getWriter()) { 
+            HttpSession session = request.getSession();
+            String name = (String) session.getAttribute("Name");
+            //String name = request.getParameter("Nom");
+            System.out.println(name+"<<<<=====nom");
+            String pass = request.getParameter("Passe");
+            System.out.println(pass+"<<<<=====pass");            
+            String vide="";
+            String verif=database.verifData(name,pass);
+            if(pass.equals(vide))
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("errorSup1.html");
+                rd.include(request, response);
+            }
+            else 
+            {
+               
+                if("voila".equals(verif))
+                {
+                    String r=database.SuppDB(name,pass);
+                    if("Data".equals(r))
+                   {
+                       RequestDispatcher rd = request.getRequestDispatcher("confirmSupp.html");
+                       rd.include(request, response);   
+                   }
+                   else
+                   {
+                       RequestDispatcher rd = request.getRequestDispatcher("errorSup.html");
+                       rd.include(request, response);  
+                   }   
+                }
+                else
+                {
+                    RequestDispatcher rd = request.getRequestDispatcher("errorSup2.html");
+                    rd.include(request, response);               
+                }               
+            }
+                     
         }
     }
 
@@ -68,20 +104,7 @@ public class DelAcServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String name = request.getParameter("Nom");
-            String Prenom = request.getParameter("Prenom");
-            String r=database.SuppDB(name,Prenom);
-            if("Data".equals(r))
-            {
-                RequestDispatcher rd = request.getRequestDispatcher("confirmSupp.html");
-                rd.include(request, response);   
-            }
-            else
-            {
-                RequestDispatcher rd = request.getRequestDispatcher("errorSup.html");
-                rd.include(request, response);  
-            }
-            
+        processRequest(request, response);
     }
 
     /**

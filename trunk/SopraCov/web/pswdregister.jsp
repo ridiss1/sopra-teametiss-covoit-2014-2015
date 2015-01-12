@@ -1,6 +1,13 @@
+<%-- 
+    Document   : Clientconx
+    Created on : 9 janv. 2015, 22:46:50
+    Author     : Ridiss
+--%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+    
 
     <head>
 
@@ -33,7 +40,23 @@
                     <img src="assets/img/iphone.png" alt="">
                 </div>
                 <div class="register span6">
-                    <p>Modifiez votre mot de passe en vous assurant de ne pas redonner l'ancien. 
+                    <p>Modifiez votre mot de passe en vous assurant de ne pas redonner l'ancien.
+						<%-- Vérification de la présence d'un objet utilisateur en session --%>
+						<c:if test="${!empty sessionScope.Name}">
+                        <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
+                        <span> <ul id="menu">
+                        
+                                     <li>
+                        
+                            <a href="Clientconnecter.jsp">${sessionScope.Name}</a>
+                            <ul>                                
+                                <li><a  href="profil.jsp">Supprimer le compte</a></li>
+                                <li><a href="<%=request.getContextPath()+"/DeconnxionServlet"%>">Deconnexion</a></li>
+                            </ul>
+                        </li>
+                        
+                                    </ul></span>
+                        </c:if>					
                     </p>
                     <form method="POST" action="ProfileServlet">
             
@@ -41,8 +64,10 @@
                         <input type="password" name="Ancien"><br/>
 						<label>Nouveau Mot de Passe </label>
                         <input type="password" name="New"><br/>						
-						<a href="Clientconnecter.jsp">Annuler</a>												              
-                        <button id="submit" type="submit">Submit</button>
+						<a href="Clientconnecter.jsp">Annuler</a>
+						<button >						
+						<a href="<%=request.getContextPath()+"/ProfileServlet"%>">Valider</a>
+						</button>                      
 						
                     </form>
 

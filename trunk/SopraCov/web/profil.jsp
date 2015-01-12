@@ -1,6 +1,12 @@
+<%-- 
+    Document   : Profil
+    Created on : 9 janv. 2015, 22:46:50
+    Author     : Mb yann
+--%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
     <head>
 
@@ -34,14 +40,31 @@
                     <img src="assets/img/iphone.png" alt="">
                 </div>
                 <div class="register span6">
-                    <p><h3>Merci de remplir ces deux champs et de confirmer la suppression du compte.</h3>
+                    <p>Merci de valider en confirmant votre mot de passe
+					<%-- Vérification de la présence d'un objet utilisateur en session --%>
+                    <c:if test="${!empty sessionScope.Name}">
+                        <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
+                        <span> <ul id="menu">
+                        
+                                     <li>
+                        
+                            <a href="Clientconnecter.jsp">${sessionScope.Name}</a>
+                            <ul>
+                                <li><a  href="pswdregister.jsp">Modifier mot de passe</a></li>                                
+                                <li><a href="<%=request.getContextPath()+"/DeconnxionServlet"%>">Deconnexion</a></li>
+                            </ul>
+                        </li>
+                        
+                                    </ul></span>
+                        </c:if>
                     </p>
                     <form method="POST" action="DelAcServlet">	
-						<label><h4>Nom *</h4> </label>
-						<input type="text" name="Nom" id="required"><br/>
-						<label><h4>Prénom *</h4> </label>
-						<input type="text" name="Prenom" id="required"><br/>
-                        <button id="submit" type="submit">Valider</button>						
+						<label><h4>Mot de Passe *</h4> </label>
+						<input type="password" name="Passe" id="required"><br/>
+						<a href="Clientconnecter.jsp">Annuler</a>
+                        <button >						
+						<a href="<%=request.getContextPath()+"/DelAcServlet"%>">Valider</a>
+						</button>						
                     </form>
 						</div>
 							
