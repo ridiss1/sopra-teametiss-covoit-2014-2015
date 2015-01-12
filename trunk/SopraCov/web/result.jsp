@@ -61,8 +61,9 @@
                         </c:if>
                     <form method="POST" action="ProfileServlet">
             
-                       <div>
-							<table id='results'>
+                       <div class="table-container">
+                           
+							<table class="tabbable">
 								<thead>
 									<tr id='header_row'>
 										<th>Domicile</th><th/><th/></th><th/><th/>
@@ -81,6 +82,7 @@
 						<p><br/>
 							<a href="Clientconnecter.jsp">Retour</a><span class="fontawesome-arrow-right"></span>
 						</p> 
+                                                
                     </form>
 
         
