@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  */
 public final class DB {
     
-    private final String url = "jdbc:derby://localhost:1527/SopraDB;user=sopra;password=sopra";
+    private final String url = "jdbc:derby://localhost:1527/SOPRADB;user=sorpa;password=sopra";
     private Connection conn = null;
     private Statement stmt = null;
     private final String Nomtable = "UserDB";

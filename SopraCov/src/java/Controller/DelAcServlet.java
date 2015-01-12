@@ -37,19 +37,6 @@ public class DelAcServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {   
-            String name = request.getParameter("Nom");
-            String Prenom = request.getParameter("Prenom");
-            String r=database.SuppDB(name,Prenom);
-            if("Data".equals(r))
-            {
-                RequestDispatcher rd = request.getRequestDispatcher("confirmSupp.html");
-                rd.include(request, response);   
-            }
-            else
-            {
-                RequestDispatcher rd = request.getRequestDispatcher("errorSup.html");
-                rd.include(request, response);  
-            }
             
             
         }
@@ -81,7 +68,20 @@ public class DelAcServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String name = request.getParameter("Nom");
+            String Prenom = request.getParameter("Prenom");
+            String r=database.SuppDB(name,Prenom);
+            if("Data".equals(r))
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("confirmSupp.html");
+                rd.include(request, response);   
+            }
+            else
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("errorSup.html");
+                rd.include(request, response);  
+            }
+            
     }
 
     /**
