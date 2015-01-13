@@ -230,6 +230,37 @@ public final class DB {
         return r;
     }
     
+    // Verifie si on existe dans la DB
+    public String verifID(String Email, String pass) {
+        String r = "";
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the ResultSetMetaData object will provide information about the columns
+            // for instance the number of columns, their labels, etc.
+            try ( // the SQL select command will provide a ResultSet containing the query results
+                    ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Email='" + Email + "') AND (" + Nomtable + ".Password='" + pass + "')")) {
+                // the ResultSetMetaData object will provide information about the columns
+                // for instance the number of columns, their labels, etc.
+                ResultSetMetaData rsmd = results.getMetaData();
+                System.out.println("le res"+results);
+                int ID = -5;
+                while (results.next()) {
+                    ID = results.getInt(results.findColumn("ID"));
+                    System.out.println("le id="+ID);
+                }
+                if (ID != -5) {
+                    r = "voila";
+                }
+            }
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            r = sqlExcept.toString();
+        }
+        System.out.println("le r "+r);
+        return r;
+    }
+    
     
     
     public String ModifPswDB(String pass) {
@@ -378,6 +409,41 @@ public final class DB {
         System.out.println("r1=============== Resultat non vide = " + rechercheAv);
         System.out.println("r1===============" + avancee);
         return avancee;
+    }
+    
+    
+    
+    // Verifie si on existe dans la DB
+    public String recupNom(String mail, String pass) {
+        String r = "";
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            //===<<<< associer la requette a un user, ce qui na pas encore ete fait >>>>
+            ResultSet results = stmt.executeQuery("SELECT Nom FROM "+Nomtable+" WHERE ("+Nomtable+".Email='"+mail+"') AND ("+Nomtable+".Password ='"+pass+"')"); 
+            // the ResultSetMetaData object will provide information about the columns
+            // for instance the number of columns, their labels, etc.
+            ResultSetMetaData rsmd = results.getMetaData();
+            System.out.println("Results==========" + results);
+            String nm="";
+            String vide="";
+            while (results.next()) {
+                nm = results.getString(results.findColumn("Nom"));
+            }
+            if (!vide.equals(nm)) 
+            {
+                r = nm;                
+            }
+            
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            r = sqlExcept.toString();
+        }
+        System.out.println("ok===============" + r);
+        return r;
+        
     }
     /**
      *

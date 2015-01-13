@@ -98,20 +98,21 @@ public class LogServlet extends HttpServlet {
         session = request.getSession();
         
         
-        String name = request.getParameter("Nom");
+        String Email = request.getParameter("Mail");
         String pass=request.getParameter("Passe");
-        if("admin".equals(name) & "admin".equals(pass))
+        if("admin".equals(Email) & "admin".equals(pass))
         {
             RequestDispatcher rd = request.getRequestDispatcher("admin.html");
             rd.include(request, response);
         }
         else
         {
-            String S=data.verifData(name, pass);
+            String S=data.verifID(Email, pass);
             if("voila".equals(S))
                 
             {   //initialisation de la variable de session
                 
+                String name=data.recupNom(Email, pass);
                 session.setAttribute( "Name", name );
                 this.getServletContext().getRequestDispatcher("/Clientconnecter.jsp").forward(request, response);
                 /* Récupération de la date courante */
