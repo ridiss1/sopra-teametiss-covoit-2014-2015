@@ -100,7 +100,7 @@ public class Utilisateur {
                 EmailSender x=new EmailSender(Email,Prenom);
                 if("ok".equals(s))
                 {
-                    RequestDispatcher rd = request.getRequestDispatcher("Clientconnecters.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("Clientconnecter.jsp");
                     rd.include(request, response);
                 }
                 else
