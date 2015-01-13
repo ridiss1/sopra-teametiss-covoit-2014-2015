@@ -36,7 +36,7 @@
           
           <fieldset class="clearfix">
 
-            <p><span class="fontawesome-user"></span><input type="text" name="Nom" value="Identifiant" onBlur="if(this.value == '') this.value = 'Identifiant'" onFocus="if(this.value == 'Identifiant') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
+            <p><span class="fontawesome-user"></span><input type="text" name="Mail" value="Adresse mail" onBlur="if(this.value == '') this.value = 'Adresse mail'" onFocus="if(this.value == 'Adresse mail') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Username" -->
             <p><span class="fontawesome-lock"></span><input type="password"  name="Passe" value="Password" onBlur="if(this.value == '') this.value = 'Password'" onFocus="if(this.value == 'Password') this.value = ''" required></p> <!-- JS because of IE support; better: placeholder="Password" -->
                 
                 
