@@ -327,6 +327,7 @@ display: inline-block;
         list-style : none; /* on supprime le style par défaut de la liste */
         line-height : 21px; /* on définit une hauteur pour chaque élément */
         text-align : center; /* on centre le texte qui se trouve dans la liste */
+        width: 30%;
 }
 
 #menu /* Ensemble du menu */
@@ -341,8 +342,8 @@ display: inline-block;
 {
         display : compact; /* on change le type d'élément, les liens deviennent des balises de type block */
         padding : 0; /* aucune marge intérieure */
-        background : #26ceff; /* couleur de fond */        
-        color : #040404; /* couleur du texte */
+        background : #f8f8f8; /* couleur de fond */        
+        color : #0044cc; /* couleur du texte */
         text-decoration : forestgreen; /* on supprime le style par défaut des liens (la plupart du temps = souligné) */
         width : 150px; /* largeur */
 }
@@ -366,13 +367,13 @@ display: inline-block;
     cursor: pointer;
     background: #ffffff;
     *zoom: 1;
-    filter: progid: DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#ffffff', endColorstr='#FFFF7902');
+    filter: progid: DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#f8f8f8', endColorstr='#FFFF7902');
     filter: progid: DXImageTransform.Microsoft.gradient(enabled=false);
-    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(100%, #ffffff));
-    background-image: -webkit-linear-gradient(#ffffff, #ffffff);
-    background-image: -moz-linear-gradient(#ffffff, #ffffff);
-    background-image: -o-linear-gradient(#ffffff, #ff7902);
-    background-image: linear-gradient(#ffffff, #ffffff);
+    background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #f8f8f8), color-stop(100%, #f8f8f8));
+    background-image: -webkit-linear-gradient(#f8f8f8, #f8f8f8);
+    background-image: -moz-linear-gradient(#f8f8f8, #f8f8f8);
+    background-image: -o-linear-gradient(#f8f8f8, #f8f8f8);
+    background-image: linear-gradient(#f8f8f8, #f8f8f8);
     border: 1px solid #e86d00;
     *border: 0;
     border-bottom-color: #9b4900;
@@ -392,6 +393,7 @@ display: inline-block;
 html>body #menu li
 {
         border-right: 1px solid transparent ; /* on met une bordure transparente à droite de chaque élément */
+        text-align: center;
 }
 
 #menu li ul /* Sous-listes */
@@ -399,6 +401,7 @@ html>body #menu li
         position: absolute; /* Position absolue */
         width: 144px; /* Largeur des sous-listes */
         left: -999em; /* Hop, on envoie loin du champ de vision */
+        text-align: center;
 }
 
 
