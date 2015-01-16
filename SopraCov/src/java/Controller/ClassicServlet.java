@@ -58,6 +58,7 @@ public class ClassicServlet extends HttpServlet {
          HttpSession session = request.getSession();
         System.out.println("var sess"+session.getAttribute("Name"));
         String recherchClas = dataUser.RechercheClassique((String) session.getAttribute("Name"));
+        System.out.println("donéé"+recherchClas);
         if (dataUser.getrechercheClas()) {
             request.setAttribute("trajetsClass", recherchClas); // This will be available as ${trajets}
             RequestDispatcher rd = request.getRequestDispatcher("itineraire.jsp");
