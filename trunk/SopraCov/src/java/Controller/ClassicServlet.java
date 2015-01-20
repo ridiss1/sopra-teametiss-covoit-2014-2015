@@ -57,10 +57,9 @@ public class ClassicServlet extends HttpServlet {
             throws ServletException, IOException {
          HttpSession session = request.getSession();
         System.out.println("var sess"+session.getAttribute("Name"));
-        String recherchClas = dataUser.RechercheClassique((String) session.getAttribute("Name"));
-        System.out.println("donéé"+recherchClas);
+        String recherchClas = dataUser.RechercheClassique((String) session.getAttribute("Name"),(int) session.getAttribute("ID"));
         if (dataUser.getrechercheClas()) {
-            request.setAttribute("trajetsClass", recherchClas); // This will be available as ${trajets}
+            request.setAttribute("trajetsClass", recherchClas); // This will be available as ${trajetsClass}
             RequestDispatcher rd = request.getRequestDispatcher("itineraire.jsp");
             rd.forward(request, response);
         } else {

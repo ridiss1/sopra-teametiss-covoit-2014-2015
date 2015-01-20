@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Utilisateur {
            private DB data = new DB();
+           private int IdDBSess = -1;
     
     
     public void creationUSER(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException{
@@ -91,7 +92,7 @@ public class Utilisateur {
             String pass=request.getParameter("Passe");
             /* TODO output your page here. You may use following sample code. */
             String result = data.AjoutDB(name, Prenom, Email, tel, Com, CodP, Lieu, Morn, Eve,Lun,Mar,Mer,Jeu,Ven,Sam,Dim,Conduc, Notif,pass,count);
-            
+            IdDBSess = data.getId();
             if("Data".equals(result))
             {
                 //String s=data.verifieLaDate(name,Prenom);
@@ -116,4 +117,11 @@ public class Utilisateur {
             }
     
 }
+
+    /**
+     * @return the IdDBSess
+     */
+    public int getIdDBSess() {
+        return IdDBSess;
+    }
 }
