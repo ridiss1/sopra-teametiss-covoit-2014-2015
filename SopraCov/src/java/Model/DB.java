@@ -134,7 +134,7 @@ public final class DB {
         try {
             // creates a SQL Statement object in order to execute the SQL insert command
             stmt = conn.createStatement();
-            ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Nom='" + nom + "') AND (" + Nomtable + ".Password='" + pass + "')");
+            ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Prenom='" + nom + "') AND (" + Nomtable + ".Password='" + pass + "')");
             int id_session = 0;
             while (results.next()) {
                 id_session = results.getInt(results.findColumn("ID"));
@@ -225,7 +225,7 @@ public final class DB {
             // the ResultSetMetaData object will provide information about the columns
             // for instance the number of columns, their labels, etc.
             try ( // the SQL select command will provide a ResultSet containing the query results
-                    ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Nom='" + nom + "') AND (" + Nomtable + ".Password='" + pass + "')")) {
+                    ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Prenom='" + nom + "') AND (" + Nomtable + ".Password='" + pass + "')")) {
                 // the ResultSetMetaData object will provide information about the columns
                 // for instance the number of columns, their labels, etc.
                 ResultSetMetaData rsmd = results.getMetaData();
@@ -533,7 +533,7 @@ public final class DB {
             stmt = conn.createStatement();
             // the SQL select command will provide a ResultSet containing the query results
             //===<<<< associer la requette a un user, ce qui na pas encore ete fait >>>>
-            ResultSet results = stmt.executeQuery("SELECT Nom FROM " + Nomtable + " WHERE (" + Nomtable + ".Email='" + mail + "') AND (" + Nomtable + ".Password ='" + pass + "')");
+            ResultSet results = stmt.executeQuery("SELECT Prenom FROM " + Nomtable + " WHERE (" + Nomtable + ".Email='" + mail + "') AND (" + Nomtable + ".Password ='" + pass + "')");
             // the ResultSetMetaData object will provide information about the columns
             // for instance the number of columns, their labels, etc.
             ResultSetMetaData rsmd = results.getMetaData();
@@ -541,7 +541,7 @@ public final class DB {
             String nm = "";
             String vide = "";
             while (results.next()) {
-                nm = results.getString(results.findColumn("Nom"));
+                nm = results.getString(results.findColumn("Prenom"));
             }
             if (!vide.equals(nm)) {
                 r = nm;
