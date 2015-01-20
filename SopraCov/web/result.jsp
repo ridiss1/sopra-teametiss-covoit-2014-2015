@@ -70,7 +70,8 @@
 										<th>Lieu de travail</th><th/><th/></th><th/><th/>
 										<th>Conducteur</th><th/><th/></th><th/><th/>
 										<th>Numero</th><th/><th/></th><th/><th/>
-                                                                                <th>Jour</th><th/><th/></th><th/><th/>
+                                                                                <th>Jours</th><th/><th/></th><th/><th/>
+                                                                                <th>Horaires</th><th/><th/></th><th/><th/>
 										<th>Details</th><th/><th/></th><th/><th/>
 									</tr>
 								</thead>

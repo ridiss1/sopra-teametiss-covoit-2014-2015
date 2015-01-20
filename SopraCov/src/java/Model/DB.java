@@ -20,13 +20,12 @@ import java.sql.Time;
  */
 public final class DB {
 
-    private final String url = "jdbc:derby://localhost:1527/SOPRADB;user=sorpa;password=sopra";
+    private final String url = "jdbc:derby://localhost:1527/SopraDB;user=sopra;password=sopra";
     private Connection conn = null;
     private Statement stmt = null;
     private final String Nomtable = "USERDB";
     private final String RoutesTable = "ROUTES";
-    private static int id = 0;
-    private static int idRoutes = 0;
+    private int id = -1;
     private int ident = -1;
     private Boolean rechercheAv = false;
     private Boolean rechercheClas = false;
@@ -52,50 +51,72 @@ public final class DB {
         String resultRoutes = "Insertion";
         String r = "Insertion";
         String nomConduc = prenom + " " + nom;
+        String jours = "";
         try {
             // creates a SQL Statement object in order to execute the SQL insert command
             stmt = conn.createStatement();
 
             stmt.execute("insert into " + Nomtable + " (Nom,Prenom,Email,Tel,Commune,CodePostal,LieuDeTravail,MorningTime,EveTime,Lundi,Mardi,Mercredi,Jeudi,Vendredi,Samedi,Dimanche,Conducteur,Notify,Password) values (" + "'" + nom + "','" + prenom + "','" + email + "'," + tel + ",'" + commune + "'," + codePostal + ",'" + workplace + "','" + HDMatin + "','" + HDSoir + "','" + lun + "','" + mar + "','" + mer + "','" + jeu + "','" + ven + "','" + sam + "','" + dim + "','" + conducteur + "','" + notify + "','" + pass + "')");
             ResultSet rese = stmt.executeQuery("SELECT ID FROM " + Nomtable + " WHERE (" + Nomtable + ".Nom='" + nom + "') AND (" + Nomtable + ".Password='" + pass + "')");
-            id = rese.findColumn("ID");
-//insertion des trajets
+            //id = rese.findColumn("ID");
+            rese.next(); //pour aller à la ligne du résultat
+            setId(rese.getInt(rese.findColumn("ID")));
+            System.out.println("ID=============== " + id);
+            stmt.close();
+           //insertion des trajets
             if (lun == true) {
-                resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Lundi", tel, conducteur);
+                //resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Lundi", tel, conducteur);
+                jours="Lundi";
                 inserted++;
             }
 
             if (mar == true) {
-                resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Mardi", tel, conducteur);
+                //resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Mardi", tel, conducteur);
+                if(inserted > 0) jours+=", Mardi";
+                else jours="Mardi";
                 inserted++;
             }
 
             if (mer == true) {
-                resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Mercredi", tel, conducteur);
+                //resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Mercredi", tel, conducteur);
+                if(inserted > 0) jours+=", Mercredi";
+                else jours="Mercredi";
                 inserted++;
             }
 
             if (jeu == true) {
-                resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Jeudi", tel, conducteur);
+                //resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Jeudi", tel, conducteur);
+                if(inserted > 0) jours+=", Jeudi";
+                else jours="Jeudi";
                 inserted++;
             }
 
             if (ven == true) {
-                resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Vendredi", tel, conducteur);
+                //resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Vendredi", tel, conducteur);
+                if(inserted > 0) jours+=", Vendredi";
+                else jours="Vendredi";
                 inserted++;
             }
 
             if (sam == true) {
-                resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Samedi", tel, conducteur);
+                //resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Samedi", tel, conducteur);
+                if(inserted > 0) jours+=", Samedi";
+                else jours="Samedi";
                 inserted++;
             }
 
             if (dim == true) {
-                resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Dimanche", tel, conducteur);
+                //resultRoutes = AjoutRoutesDB(id, commune, codePostal, workplace, nomConduc, "Dimanche", tel, conducteur);
+                if(inserted > 0) jours+=", Dimanche";
+                else jours="Dimanche";
                 inserted++;
             }
-
-            stmt.close();
+            
+            if (inserted == count)
+            {
+                System.out.println(" ***************id in routesDB = " + getId());
+                resultRoutes = AjoutRoutesDB(getId(), commune, codePostal, workplace, nomConduc, jours, tel, conducteur,HDMatin,HDSoir);
+            }
             if (inserted == count && resultRoutes == "DataRoutes") {
                 r = "Data";
             }
@@ -104,7 +125,6 @@ public final class DB {
             r = "USERDB : " + sqlExcept.toString();
         }
         System.out.println(r + " and " + resultRoutes);
-        id++;
         return r;
     }
 
@@ -114,7 +134,7 @@ public final class DB {
         try {
             // creates a SQL Statement object in order to execute the SQL insert command
             stmt = conn.createStatement();
-            ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Prenom='" + nom + "') AND (" + Nomtable + ".Password='" + pass + "')");
+            ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Nom='" + nom + "') AND (" + Nomtable + ".Password='" + pass + "')");
             int id_session = 0;
             while (results.next()) {
                 id_session = results.getInt(results.findColumn("ID"));
@@ -127,24 +147,28 @@ public final class DB {
             r = sqlExcept.toString();
         }
         System.out.println("supression==================" + r);
-        id--;
         return r;
     }
 
-    public synchronized String AjoutRoutesDB(int idUser, String commune, int codePostal, String workplace, String conducteur, String jour, int tel, Boolean conduc) {
+    public synchronized String AjoutRoutesDB(int idUser, String commune, int codePostal, String workplace, String conducteur, String jours, int tel, Boolean conduc,String HDMatin,String HDSoir) {
         String route = "DataRoutes";
 
-        try {
+        try 
+        {
+             // creates a SQL Statement object in order to execute the SQL insert command
+            stmt = conn.createStatement();
             if (conduc) {
-                stmt.execute("insert into " + RoutesTable + " (IDUser,Commune,CodePostal,LieuDeTravail,Conducteur,Jour,Tel) values (" + idUser + ",'" + commune + "'," + codePostal + ",'" + workplace + "','" + conducteur + "','" + jour + "'," + tel + ")");
+                stmt.execute("insert into " + RoutesTable + " (IDUser,Commune,CodePostal,LieuDeTravail,Conducteur,Jours,Tel,MorningTime,EveTime) values (" + idUser + ",'" + commune + "'," + codePostal + ",'" + workplace + "','" + conducteur + "','" + jours + "'," + tel+",'" + HDMatin + "','" + HDSoir + "')");
             } else {
-                stmt.execute("insert into " + RoutesTable + " (IDUser,Commune,CodePostal,LieuDeTravail,Jour,Tel) values (" + idUser + ",'" + commune + "'," + codePostal + ",'" + workplace + "','" + jour + "'," + tel + ")");
+                stmt.execute("insert into " + RoutesTable + " (IDUser,Commune,CodePostal,LieuDeTravail,Jours,Tel,MorningTime,EveTime) values (" + idUser + ",'" + commune + "'," + codePostal + ",'" + workplace + "','" + jours + "'," + tel+",'" + HDMatin + "','" + HDSoir + "')");
             }
-        } catch (SQLException sqlExcept) {
+            stmt.close();
+        } 
+        catch (SQLException sqlExcept) 
+        {
             route = "ROUTES " + sqlExcept.toString();
         }
         System.out.println(route);
-        idRoutes++;
         return route;
     }
 
@@ -201,7 +225,7 @@ public final class DB {
             // the ResultSetMetaData object will provide information about the columns
             // for instance the number of columns, their labels, etc.
             try ( // the SQL select command will provide a ResultSet containing the query results
-                    ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Prenom='" + nom + "') AND (" + Nomtable + ".Password='" + pass + "')")) {
+                    ResultSet results = stmt.executeQuery("SELECT * FROM " + Nomtable + " WHERE (" + Nomtable + ".Nom='" + nom + "') AND (" + Nomtable + ".Password='" + pass + "')")) {
                 // the ResultSetMetaData object will provide information about the columns
                 // for instance the number of columns, their labels, etc.
                 ResultSetMetaData rsmd = results.getMetaData();
@@ -325,7 +349,6 @@ public final class DB {
         }
 
         System.out.println("r2===============" + r);
-        id++;
         return r;
     }
 
@@ -338,12 +361,15 @@ public final class DB {
             stmt = conn.createStatement();
             // the SQL select command will provide a ResultSet containing the query results
             ResultSet results;
-            // the SQL select command will provide a ResultSet containing the query results 
-            if (conducteur.equals(vide)) {
-                results = stmt.executeQuery("SELECT * FROM " + RoutesTable + " WHERE (" + RoutesTable + ".Commune='" + commune + "') AND (" + RoutesTable + ".CodePostal =" + codePostal + ") AND (" + RoutesTable + ".LieuDeTravail ='" + workplace + "')");
-            } else {
-                results = stmt.executeQuery("SELECT * FROM " + RoutesTable + " WHERE (" + RoutesTable + ".Conducteur='" + conducteur + "') AND (" + RoutesTable + ".Commune='" + commune + "') AND (" + RoutesTable + ".CodePostal =" + codePostal + ") AND (" + RoutesTable + ".LieuDeTravail ='" + workplace + "')");
-            }
+           // the SQL select command will provide a ResultSet containing the query results 
+           if(conducteur.equals(vide))
+           {
+              results = stmt.executeQuery("SELECT *  FROM "+RoutesTable+" WHERE ("+RoutesTable+".Commune='"+commune+"') AND ("+RoutesTable+".CodePostal ="+codePostal+") AND ("+RoutesTable+".LieuDeTravail ='"+workplace+"')"); 
+           }
+           else
+           {
+              results = stmt.executeQuery("SELECT  *  FROM "+RoutesTable+" WHERE ("+RoutesTable+".Conducteur='"+conducteur+"') AND ("+RoutesTable+".Commune='"+commune+"') AND ("+RoutesTable+".CodePostal ="+codePostal+") AND ("+RoutesTable+".LieuDeTravail ='"+workplace+"')");  
+           }     
             // the ResultSetMetaData object will provide information about the columns
             // for instance the number of columns, their labels, etc.
             ResultSetMetaData rsmd = results.getMetaData();
@@ -376,8 +402,10 @@ public final class DB {
                 int codePostalDB = results.getInt(results.findColumn("CodePostal"));
                 String workplaceDB = results.getString(results.findColumn("LieuDeTravail"));
                 int telDB = results.getInt(results.findColumn("Tel"));
-                String jourDB = results.getString(results.findColumn("Jour"));
-                avancee += communeDB + "</td><th/><th/></th><th/><th/><td>" + workplaceDB + "</td><th/><th/></th><th/><th/><td >" + ici + "</td><th/><th/></th><th/><th/><td >" + telDB + "</td><th/><th/></th><th/><th/><td >" + jourDB + "</td><th/><th/></th><th/><th/><td align='center'><a style='background-color:#26ceff;' href=\"https://www.google.fr/maps/dir/" + communeDB + " " + codePostalDB + "/" + workplaceDB + "/\">Cliquez</a></td><th/><th/></th><th/><th/></tr>";
+                String jourDB = results.getString(results.findColumn("Jours"));
+                String HorairesDB = "Matin : "+results.getString(results.findColumn("MorningTime"));
+                HorairesDB +=" <br>"+"Soir : "+results.getString(results.findColumn("EveTime"));
+                avancee += communeDB + "</td><th/><th/></th><th/><th/><td>" + workplaceDB + "</td><th/><th/></th><th/><th/><td >" + ici + "</td><th/><th/></th><th/><th/><td >" + telDB + "</td><th/><th/></th><th/><th/><td >" + jourDB + "</td><th/><th/></th><th/><th/><td >" + HorairesDB + "</td><th/><th/></th><th/><th/><td align='center'><a style='background-color:#26ceff;' href=\"https://www.google.fr/maps/dir/" + communeDB + " " + codePostalDB + "/" + workplaceDB + "/\">Cliquez</a></td><th/><th/></th><th/><th/></tr>";
                 nbr++;
                 //if(nbr < nombreLignes)avancee+="<tr class='odd'>";
                 avancee += "<tr class='odd'><td>";
@@ -403,8 +431,8 @@ public final class DB {
      * @param session
      * @return
      */
-    
-    public String RechercheClassique(String session) {
+    @SuppressWarnings("empty-statement")
+    public String RechercheClassique(String session,int ID) {
         String classic = "Vide";
         rechercheClas = true;
         try {
@@ -412,7 +440,7 @@ public final class DB {
             // creates a SQL Statement object in order to execute the SQL select command
             stmt = conn.createStatement();
             // the SQL select command will provide a ResultSet containing the query results
-            ResultSet results = stmt.executeQuery("SELECT * FROM " + RoutesTable + " WHERE " + RoutesTable + ".LieuDeTravail IN ( SELECT LieuDeTravail FROM " + Nomtable + " WHERE " + Nomtable + ".Prenom ='" + session + "')");
+            ResultSet results = stmt.executeQuery("SELECT * FROM " + RoutesTable + " WHERE " + RoutesTable + ".LieuDeTravail IN ( SELECT LieuDeTravail FROM " + Nomtable + " WHERE " + Nomtable + ".Prenom ='" + session + "' AND "+ Nomtable + ".ID="+ID+")");
             // the ResultSetMetaData object will provide information about the columns
             // for instance the number of columns, their labels, etc.
             ResultSetMetaData rsmd = results.getMetaData();
@@ -438,8 +466,10 @@ public final class DB {
                 int codePostalDB = results.getInt(results.findColumn("CodePostal"));
                 String workplaceDB = results.getString(results.findColumn("LieuDeTravail"));
                 int telDB = results.getInt(results.findColumn("Tel"));
-                String jourDB = results.getString(results.findColumn("Jour"));
-                classic += communeDB + "</td><th/><th/></th><th/><th/><td>" + workplaceDB + "</td><th/><th/></th><th/><th/><td >" + ici + "</td><th/><th/></th><th/><th/><td >" + telDB + "</td><th/><th/></th><th/><th/><td >" + jourDB + "</td><th/><th/></th><th/><th/><td align='center'><a style='background-color:#26ceff;' href=\"https://www.google.fr/maps/dir/" + communeDB + " " + codePostalDB + "/" + workplaceDB + "/\">Cliquez</a></td><th/><th/></th><th/><th/></tr>";
+                String jourDB = results.getString(results.findColumn("Jours"));
+                String HorairesDB = "Matin : "+results.getString(results.findColumn("MorningTime"));
+                HorairesDB +=" <br>"+"Soir : "+results.getString(results.findColumn("EveTime"));
+                classic += communeDB + "</td><th/><th/></th><th/><th/><td>" + workplaceDB + "</td><th/><th/></th><th/><th/><td >" + ici + "</td><th/><th/></th><th/><th/><td >" + telDB + "</td><th/><th/></th><th/><th/><td >" + jourDB + "</td><th/><th/></th><th/><th/><td >" + HorairesDB + "</td><th/><th/></th><th/><th/><td align='center'><a style='background-color:#26ceff;' href=\"https://www.google.fr/maps/dir/" + communeDB + " " + codePostalDB + "/" + workplaceDB + "/\">Cliquez</a></td><th/><th/></th><th/><th/></tr>";
                 nbr++;
                 //if(nbr < nombreLignes)avancee+="<tr class='odd'>";
                 classic += "<tr class='odd'><td>";
@@ -483,7 +513,7 @@ public final class DB {
     /**
      * @param aId the id to set
      */
-    public static void setId(int aId) {
+    public void setId(int aId) {
         id = aId;
     }
 
@@ -503,7 +533,7 @@ public final class DB {
             stmt = conn.createStatement();
             // the SQL select command will provide a ResultSet containing the query results
             //===<<<< associer la requette a un user, ce qui na pas encore ete fait >>>>
-            ResultSet results = stmt.executeQuery("SELECT Prenom FROM " + Nomtable + " WHERE (" + Nomtable + ".Email='" + mail + "') AND (" + Nomtable + ".Password ='" + pass + "')");
+            ResultSet results = stmt.executeQuery("SELECT Nom FROM " + Nomtable + " WHERE (" + Nomtable + ".Email='" + mail + "') AND (" + Nomtable + ".Password ='" + pass + "')");
             // the ResultSetMetaData object will provide information about the columns
             // for instance the number of columns, their labels, etc.
             ResultSetMetaData rsmd = results.getMetaData();
@@ -511,7 +541,7 @@ public final class DB {
             String nm = "";
             String vide = "";
             while (results.next()) {
-                nm = results.getString(results.findColumn("Prenom"));
+                nm = results.getString(results.findColumn("Nom"));
             }
             if (!vide.equals(nm)) {
                 r = nm;
@@ -525,5 +555,12 @@ public final class DB {
         System.out.println("ok===============" + r);
         return r;
 
+    }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
     }
 }
