@@ -110,7 +110,9 @@ public class LogServlet extends HttpServlet {
             {   //initialisation de la variable de session
                 
                 String name=data.recupNom(Email, pass);
+                int id=Integer.parseInt(data.recupID(Email, pass));
                 session.setAttribute( "Name", name );
+                session.setAttribute( "ID", id);
                 this.getServletContext().getRequestDispatcher("/Clientconnecter.jsp").forward(request, response);
                 /* Récupération de la date courante */
                 Date dt = new Date();

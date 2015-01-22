@@ -51,7 +51,10 @@
                             <a href="Clientconnecter.jsp">${sessionScope.Name}</a>
                             <ul>
                                 <li><a  href="pswdregister.jsp">Modifier mot de passe</a></li>
-                                <li><a  href="profil.jsp">Supprimer le compte</a></li>                                
+								<li><a  href="domicil.jsp">Modifier Adresses</a></li>
+								<li><a  href="Jour.jsp">Modifier Jours applicables</a></li>
+								<li><a  href="horair.jsp">Modifier les horaires</a></li>
+                                <li><a  href="profil.jsp">Supprimer le compte</a></li>                                 
                                 <li><a href="<%=request.getContextPath()+"/DeconnxionServlet"%>">Deconnexion</a></li>
                             </ul>
                         </li>
@@ -66,11 +69,11 @@
 								<thead>
 									<tr id='header_row'>
 										<th>Domicile</th><th/><th/></th><th/><th/>
-										<th>Lieu de travail</th><th/><th/></th><th/><th/>
+										<th>Lieu-Travail</th><th/><th/></th><th/><th/>
 										<th>Conducteur</th><th/><th/></th><th/><th/>
 										<th>Numero</th><th/><th/></th><th/><th/>
-                                                                                <th>Jours</th><th/><th/></th><th/><th/>
-                                                                                <th>Horaires</th><th/><th/></th><th/><th/>
+                                        <th>Jours</th><th/><th/></th><th/><th/>
+                                        <th>Horaires</th><th/><th/></th><th/><th/>
 										<th>Details</th><th/><th/></th><th/><th/>
 									</tr>
 								</thead>

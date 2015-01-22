@@ -71,6 +71,7 @@ public class FormServlet extends HttpServlet {
         Utilisateur user=new Utilisateur();
        // Création d'un utilisateur
         session.setAttribute( "Name", request.getParameter("Prenom"));
+        session.setAttribute( "ID", user.getIdDBSess());
         user.creationUSER(request, response); 
         session.setAttribute( "ID", user.getIdDBSess());
     }
