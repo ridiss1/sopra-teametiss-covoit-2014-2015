@@ -5,22 +5,25 @@
  */
 package Controller;
 
+import Model.DB;
 import java.io.IOException;
 import java.io.PrintWriter;
-import Model.DB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author UT
+ * @author Mb Yann
  */
-public class AvanceServlet extends HttpServlet {
+@WebServlet(name = "HorairServlet", urlPatterns = {"/HorairServlet"})
+public class HorairServlet extends HttpServlet {
 
-     private DB data = new DB();
+    private DB database = new DB();
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -34,8 +37,23 @@ public class AvanceServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-                 
+            HttpSession session = request.getSession();            
+            String matin = request.getParameter("HDMatin");
+            String soir=request.getParameter("HDSoir");
+            int id=(int) session.getAttribute("ID");
+            String ex=database.ModifHorair(matin, soir,id);
+            //Si l'utilisateur entre un mot de passe deja utilisé
+            if("Data".equals(ex))
+            {                
+                RequestDispatcher rd = request.getRequestDispatcher("Clientconnecter.jsp");
+                rd.include(request, response);
+            }
+            else
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("horairerror.html");
+                rd.include(request, response);
+            } 
+                       
         }
     }
 
@@ -65,23 +83,7 @@ public class AvanceServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String name = request.getParameter("Nom");
-            String com=request.getParameter("Commune");
-            int CodP = Integer.parseInt(request.getParameter("CodePostal"));
-            String work=request.getParameter("Workplace");
-
-                String trajets=data.Recherche(name,com,CodP,work);
-                if(data.getRechercheAv())
-                {
-                    request.setAttribute("trajets", trajets); // This will be available as ${trajets}
-                    RequestDispatcher rd = request.getRequestDispatcher("result.jsp");
-                    rd.forward(request, response); 
-                }
-                else
-                {
-                    RequestDispatcher rd = request.getRequestDispatcher("noresult.html");
-                    rd.include(request, response);
-                }      
+        processRequest(request, response);
     }
 
     /**

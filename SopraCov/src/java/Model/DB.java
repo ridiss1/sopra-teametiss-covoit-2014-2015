@@ -20,7 +20,7 @@ import java.sql.Time;
  */
 public final class DB {
 
-    private final String url = "jdbc:derby://localhost:1527/SopraDB;user=sopra;password=sopra";
+    private final String url = "jdbc:derby://localhost:1527/Sopra_DB;user=sopra;password=sopra";
     private Connection conn = null;
     private Statement stmt = null;
     private final String Nomtable = "USERDB";
@@ -351,6 +351,156 @@ public final class DB {
         System.out.println("r2===============" + r);
         return r;
     }
+	
+	public String ModifHorair(String matin, String soir,int id) {
+        String r = "Data";
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            String vide="";            
+            String s1 = "" + matin;
+            String s2 = "" + soir;
+            if(!vide.equals(s1))
+            {
+                matin=s1+":00";
+                stmt.executeUpdate("UPDATE " + RoutesTable + " SET MorningTime='" + matin + "' WHERE CAST(" + RoutesTable + ".IDUser AS INTEGER)=" +id );
+                stmt.executeUpdate("UPDATE " + Nomtable + " SET MorningTime='" + matin + "' WHERE CAST(" + Nomtable + ".ID AS INTEGER)=" +id );
+            }
+            if(!vide.equals(s2))
+            {
+                soir=s2+":00";
+                stmt.executeUpdate("UPDATE " + RoutesTable + " SET EveTime='" + soir + "'  WHERE CAST(" + RoutesTable + ".IDUser AS INTEGER)=" +id );            
+                stmt.executeUpdate("UPDATE " + Nomtable + " SET EveTime='" + soir + "'  WHERE CAST(" + Nomtable + ".ID AS INTEGER)=" +id );
+            }
+            // the SQL select command will provide a ResultSet containing the query results
+            //ResultSet rese = stmt.executeQuery("SELECT ID FROM " + Nomtable + " WHERE (" + Nomtable + ".Prenom='" + prenom + "')");
+            //id = rese.findColumn("ID");            
+            //stmt.executeUpdate("UPDATE " + Nomtable + " SET MorningTime='" + matin + "',EveTime='" + soir + "'  WHERE (" + Nomtable + ".Prenom='" +prenom +"')");
+            // the ResultSetMetaData object will provide information about the columns
+            // for instance the number of columns, their labels, etc.
+            stmt.close();
+            // the ResultSetMetaData object will provide information about the columns
+            // for instance the number of columns, their labels, etc.
+        } catch (SQLException sqlExcept) {
+            r = sqlExcept.toString();
+        }
+
+        System.out.println("r2===============" + r);
+        id++;
+        return r;
+    }
+    
+    public String ModifDomicil(String Domicil, int CodeP, String lieu,int id,String tel) {
+        String r = "Data";
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            String vide="";
+            String s1=""+Domicil;
+            String s2=""+lieu;
+            String s3=""+tel;
+            stmt = conn.createStatement();
+
+            // the SQL select command will provide a ResultSet containing the query results
+            //ResultSet rese = stmt.executeQuery("SELECT ID FROM " + Nomtable + " WHERE (" + Nomtable + ".Prenom='" + prenom + "')");
+            //id = rese.findColumn("ID");
+            if(!s1.equals(vide))
+            {                
+              stmt.executeUpdate("UPDATE " + RoutesTable + " SET Commune='" + Domicil + "' WHERE CAST(" + RoutesTable + ".IDUser AS INTEGER)=" +id );
+              stmt.executeUpdate("UPDATE " + RoutesTable + " SET CodePostal=" + CodeP + "  WHERE CAST(" + RoutesTable + ".IDUser AS INTEGER)=" +id );
+              stmt.executeUpdate("UPDATE " + Nomtable + " SET Commune='" + Domicil + "' WHERE CAST(" + Nomtable + ".ID AS INTEGER)=" +id );
+              stmt.executeUpdate("UPDATE " + Nomtable + " SET CodePostal=" + CodeP + "  WHERE CAST(" + Nomtable + ".ID AS INTEGER)=" +id );
+            }
+            if(!s2.equals(vide))
+            {               
+              stmt.executeUpdate("UPDATE " + RoutesTable + " SET LieuDeTravail='" + lieu + "'  WHERE CAST(" + RoutesTable + ".IDUser AS INTEGER)=" +id );              
+              stmt.executeUpdate("UPDATE " + Nomtable + " SET LieuDeTravail='" + lieu + "'  WHERE CAST(" + Nomtable + ".ID AS INTEGER)=" +id );              
+            }
+            if(!s3.equals(vide))
+            {
+                int x=Integer.parseInt(tel);              
+              stmt.executeUpdate("UPDATE " + RoutesTable+ " SET Tel=" + x + "  WHERE CAST(" + RoutesTable + ".IDUser AS INTEGER)=" +id );              
+              stmt.executeUpdate("UPDATE " + Nomtable + " SET Tel=" + x + "  WHERE CAST(" + Nomtable + ".ID AS INTEGER)=" +id );              
+            }
+            //stmt.executeUpdate("UPDATE " + Nomtable + " SET Commune='" + Domicil + "',CodePostal=" + CodeP + ",LieuDeTravail='" + lieu + "',Email='"+Email+"',Tel="+tel+" WHERE (" + Nomtable + ".Prenom='" + prenom + "')");
+            // the ResultSetMetaData object will provide information about the columns
+            // for instance the number of columns, their labels, etc.
+            stmt.close();
+            // the ResultSetMetaData object will provide information about the columns
+            // for instance the number of columns, their labels, etc.
+        } catch (SQLException sqlExcept) {
+            r = sqlExcept.toString();
+        }
+
+        System.out.println("r2===============" + r);
+        id++;
+        return r;
+    }
+
+    public String ModifJour(boolean l,boolean m,boolean me,boolean j,boolean v,boolean s,boolean d,boolean not,boolean con,int id) {
+        String r = "Data";
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            String jour=" ";
+            String name;
+            if(l)
+            {
+                jour+=" Lundi";
+            }
+            if(m)
+            {
+                jour+=" Mardi";
+            }
+            if(me)
+            {
+                jour+=" Mercredi";
+            }
+            if(j)
+            {
+                jour+=" Jeudi";
+            }
+            if(v)
+            {
+                jour+=" vendredi";
+            }
+            if(s)
+            {
+                jour+=" Samedi";
+            }
+            if(d)
+            {
+                jour+=" Dimanche";
+            }
+            
+            
+            if(con==false)
+            {
+                name="-";
+                stmt.executeUpdate("UPDATE " + RoutesTable + " SET Jours='"+jour+"',Conducteur='"+name+"' WHERE CAST(" + RoutesTable + ".IDUser AS INTEGER)=" +id );
+            }
+            else
+            {
+             stmt.executeUpdate("UPDATE " + RoutesTable + " SET Jours='"+jour+"' WHERE CAST(" + RoutesTable + ".IDUser AS INTEGER)=" +id );   
+            }
+
+            // the SQL select command will provide a ResultSet containing the query results
+            //ResultSet rese = stmt.executeQuery("SELECT ID FROM " + Nomtable + " WHERE (" + Nomtable + ".Prenom='" + prenom + "')");
+            //id = rese.findColumn("ID");
+            stmt.executeUpdate("UPDATE " + Nomtable + " SET Lundi='"+l+"',Mardi='"+m+"',Mercredi='"+me+"',Jeudi='"+j+"',Vendredi='"+v+"',Samedi='"+s+"',Dimanche='"+d+"',Conducteur='"+con+"',Notify='"+not+"' WHERE CAST(" + Nomtable + ".ID AS INTEGER)=" +id );
+            // the ResultSetMetaData object will provide information about the columns
+            // for instance the number of columns, their labels, etc.
+            stmt.close();
+            // the ResultSetMetaData object will provide information about the columns
+            // for instance the number of columns, their labels, etc.
+        } catch (SQLException sqlExcept) {
+            r = sqlExcept.toString();
+        }
+
+        System.out.println("r2===============" + r);
+        id++;
+        return r;
+    }
+
 
     public String Recherche(String conducteur, String commune, int codePostal, String workplace) {
         String avancee = "Vide";
@@ -542,6 +692,38 @@ public final class DB {
             String vide = "";
             while (results.next()) {
                 nm = results.getString(results.findColumn("Prenom"));
+            }
+            if (!vide.equals(nm)) {
+                r = nm;
+            }
+
+            results.close();
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            r = sqlExcept.toString();
+        }
+        System.out.println("ok===============" + r);
+        return r;
+
+    }
+    
+    // Verifie si on existe dans la DB
+    public String recupID(String mail, String pass) {
+        String r = "";
+        try {
+            // creates a SQL Statement object in order to execute the SQL select command
+            stmt = conn.createStatement();
+            // the SQL select command will provide a ResultSet containing the query results
+            //===<<<< associer la requette a un user, ce qui na pas encore ete fait >>>>
+            ResultSet results = stmt.executeQuery("SELECT ID FROM " + Nomtable + " WHERE (" + Nomtable + ".Email='" + mail + "') AND (" + Nomtable + ".Password ='" + pass + "')");
+            // the ResultSetMetaData object will provide information about the columns
+            // for instance the number of columns, their labels, etc.
+            ResultSetMetaData rsmd = results.getMetaData();
+            System.out.println("Results==========" + results);
+            String nm = "";
+            String vide = "";
+            while (results.next()) {
+                nm = results.getString(results.findColumn("ID"));
             }
             if (!vide.equals(nm)) {
                 r = nm;

@@ -40,7 +40,7 @@
                     <img src="assets/img/iphone.png" alt="">
                 </div>
                 <div class="register span6">
-                    <p>Modifiez votre mot de passe en vous assurant de ne pas redonner l'ancien.
+                    <p>
 						<%-- Vérification de la présence d'un objet utilisateur en session --%>
 						<c:if test="${!empty sessionScope.Name}">
                         <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
@@ -49,11 +49,11 @@
                                      <li>
                         
                             <a href="Clientconnecter.jsp">${sessionScope.Name}</a>
-                            <ul>                         							
-								<li><a  href="Jour.jsp">Modifier Jours applicables</a></li>
+                            <ul>                                
+                                <li><a  href="pswdregister.jsp">Modifier mot de passe</a></li>
 								<li><a  href="domicil.jsp">Modifier Adresses</a></li>
-								<li><a  href="horair.jsp">Modifier les horaires</a></li>
-                                <li><a  href="profil.jsp">Supprimer le compte</a></li> 
+								<li><a  href="Jour.jsp">Modifier Jours applicables</a></li>								
+                                <li><a  href="profil.jsp">Supprimer le compte</a></li>  
                                 <li><a href="<%=request.getContextPath()+"/DeconnxionServlet"%>">Deconnexion</a></li>
                             </ul>
                         </li>
@@ -61,15 +61,15 @@
                                     </ul></span>
                         </c:if>					
                     </p>
-                    <form method="POST" action="ProfileServlet">
+                    <form method="POST" action="HorairServlet">
             
-                        <label>Ancien Mot de Passe </label>
-                        <input type="password" name="Ancien"><br/>
-						<label>Nouveau Mot de Passe </label>
-                        <input type="password" name="New"><br/>						
+                        <label><h4>Heure départ matin *    ex: 11:32</h4></label>
+						<input type="time" name="HDMatin" id="required"><br/>
+						<label><h4>Heure départ soir *    ex: 11:32 </h4></label>
+						<input type="time" name="HDSoir"><br/>					
 						<a href="Clientconnecter.jsp">Annuler</a>
 						<button >						
-						<a href="<%=request.getContextPath()+"/ProfileServlet"%>">Valider</a>
+						<a href="<%=request.getContextPath()+"/HorairServlet"%>">Valider</a>
 						</button>                      
 						
                     </form>
