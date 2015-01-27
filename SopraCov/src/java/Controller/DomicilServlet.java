@@ -37,26 +37,7 @@ public class DomicilServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession(); 
-            String tel= request.getParameter("Tel");
-            String com = request.getParameter("Commune");
-            int cp= Integer.parseInt(request.getParameter("CodePostal"));
-            String workplace=request.getParameter("Workplace");    
-            
-            int id=(int) session.getAttribute("ID");
-            
-            String ex=database.ModifDomicil(com, cp, workplace, id,tel);
-            //Si l'utilisateur entre un mot de passe deja utilisé
-                if("Data".equals(ex))
-                {
-                    RequestDispatcher rd = request.getRequestDispatcher("Clientconnecter.jsp");
-                    rd.include(request, response);
-                }
-                else
-                {
-                    RequestDispatcher rd = request.getRequestDispatcher("domicilerror.html");
-                    rd.include(request, response);
-                }                        
+                                   
         }
     }
 
@@ -86,7 +67,26 @@ public class DomicilServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+       HttpSession session = request.getSession(); 
+            String tel= request.getParameter("Tel");
+            String com = request.getParameter("Commune");
+            int cp= Integer.parseInt(request.getParameter("CodePostal"));
+            String workplace=request.getParameter("Workplace");    
+            
+            int id=(int) session.getAttribute("ID");
+            
+            String ex=database.ModifDomicil(com, cp, workplace, id,tel);
+            //Si l'utilisateur entre un mot de passe deja utilisé
+                if("Data".equals(ex))
+                {
+                    RequestDispatcher rd = request.getRequestDispatcher("Clientconnecter.jsp");
+                    rd.include(request, response);
+                }
+                else
+                {
+                    RequestDispatcher rd = request.getRequestDispatcher("domicilerror.html");
+                    rd.include(request, response);
+                } 
     }
 
     /**

@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html lang="fr">
     
-
     <head>
 
         <meta charset="utf-8">
@@ -27,7 +26,8 @@
         <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-
+        <!---------- CSS ------------>
+        <link rel="stylesheet" type="text/css" href="./css2/style2.css">
     </head>
 
     <body>
@@ -48,7 +48,7 @@
                         
                                      <li>
                         
-                            <a href="Clientconnecter.jsp">${sessionScope.Name}</a>
+                            <a href="#">${sessionScope.Name}</a>
                             <ul>                                
                                 <li><a  href="pswdregister.jsp">Modifier mot de passe</a></li>
 								<li><a  href="domicil.jsp">Modifier Adresses</a></li>
@@ -75,9 +75,8 @@
 							<OPTION VALUE="COLOMIERS">Colomiers</OPTION>
 						</SELECT>					
 						<a href="Clientconnecter.jsp">Annuler</a>
-						<button >						
-						<a href="<%=request.getContextPath()+"/DomicilServlet"%>">Valider</a>
-						</button>                      
+                                                 <!--l'erreur était là-->
+                                                <button  type="submit">Valider</button>                   
 						
                     </form>
 

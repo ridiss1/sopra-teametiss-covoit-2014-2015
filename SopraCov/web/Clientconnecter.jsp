@@ -43,7 +43,7 @@
                 <div class="register span6">
                     <%-- Vérification de la présence d'un objet utilisateur en session --%>
                     <c:if test="${!empty sessionScope.Name}">
-                        <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
+                        <%-- Si l'utilisateur existe en session, alors on affiche son Prenom. --%>
                         <span > <ul id="menu">
                         
                                      <li>
