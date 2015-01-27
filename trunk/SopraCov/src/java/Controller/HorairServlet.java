@@ -37,22 +37,7 @@ public class HorairServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            HttpSession session = request.getSession();            
-            String matin = request.getParameter("HDMatin");
-            String soir=request.getParameter("HDSoir");
-            int id=(int) session.getAttribute("ID");
-            String ex=database.ModifHorair(matin, soir,id);
-            //Si l'utilisateur entre un mot de passe deja utilisé
-            if("Data".equals(ex))
-            {                
-                RequestDispatcher rd = request.getRequestDispatcher("Clientconnecter.jsp");
-                rd.include(request, response);
-            }
-            else
-            {
-                RequestDispatcher rd = request.getRequestDispatcher("horairerror.html");
-                rd.include(request, response);
-            } 
+             
                        
         }
     }
@@ -83,7 +68,22 @@ public class HorairServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();            
+            String matin = request.getParameter("HDMatin");
+            String soir=request.getParameter("HDSoir");
+            int id=(int) session.getAttribute("ID");
+            String ex=database.ModifHorair(matin, soir,id);
+            //Si l'utilisateur entre un mot de passe deja utilisé
+            if("Data".equals(ex))
+            {                
+                RequestDispatcher rd = request.getRequestDispatcher("Clientconnecter.jsp");
+                rd.include(request, response);
+            }
+            else
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("horairerror.html");
+                rd.include(request, response);
+            }
     }
 
     /**

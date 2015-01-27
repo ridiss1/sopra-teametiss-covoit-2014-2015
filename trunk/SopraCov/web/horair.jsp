@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html lang="fr">
     
-
     <head>
 
         <meta charset="utf-8">
@@ -27,7 +26,8 @@
         <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-
+        <!---------- CSS ------------>
+        <link rel="stylesheet" type="text/css" href="./css2/style2.css">
     </head>
 
     <body>
@@ -40,27 +40,26 @@
                     <img src="assets/img/iphone.png" alt="">
                 </div>
                 <div class="register span6">
-                    <p>
-						<%-- Vérification de la présence d'un objet utilisateur en session --%>
-						<c:if test="${!empty sessionScope.Name}">
-                        <%-- Si l'utilisateur existe en session, alors on affiche son adresse email. --%>
-                        <span> <ul id="menu">
+                 <%-- Vérification de la présence d'un objet utilisateur en session --%>
+                    <c:if test="${!empty sessionScope.Name}">
+                        <%-- Si l'utilisateur existe en session, alors on affiche son Prenom. --%>
+                        <span > <ul id="menu">
                         
                                      <li>
                         
-                            <a href="Clientconnecter.jsp">${sessionScope.Name}</a>
-                            <ul>                                
+                            <a href="#">${sessionScope.Name}</a>
+                            <ul>
                                 <li><a  href="pswdregister.jsp">Modifier mot de passe</a></li>
-								<li><a  href="domicil.jsp">Modifier Adresses</a></li>
-								<li><a  href="Jour.jsp">Modifier Jours applicables</a></li>								
-                                <li><a  href="profil.jsp">Supprimer le compte</a></li>  
+									<li><a  href="domicil.jsp">Modifier Adresses</a></li>
+								<li><a  href="Jour.jsp">Modifier Jours applicables</a></li>
+								<li><a  href="horair.jsp">Modifier les horaires</a></li>
+                                <li><a  href="profil.jsp">Supprimer le compte</a></li> 
                                 <li><a href="<%=request.getContextPath()+"/DeconnxionServlet"%>">Deconnexion</a></li>
                             </ul>
                         </li>
                         
                                     </ul></span>
-                        </c:if>					
-                    </p>
+                        </c:if>
                     <form method="POST" action="HorairServlet">
             
                         <label><h4>Heure départ matin *    ex: 11:32</h4></label>
@@ -68,9 +67,8 @@
 						<label><h4>Heure départ soir *    ex: 11:32 </h4></label>
 						<input type="time" name="HDSoir"><br/>					
 						<a href="Clientconnecter.jsp">Annuler</a>
-						<button >						
-						<a href="<%=request.getContextPath()+"/HorairServlet"%>">Valider</a>
-						</button>                      
+                                                <!--l'erreur était là-->
+						 <button  type="submit">Valider</button>                     
 						
                     </form>
 

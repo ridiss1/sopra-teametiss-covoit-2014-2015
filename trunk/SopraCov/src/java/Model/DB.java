@@ -20,7 +20,7 @@ import java.sql.Time;
  */
 public final class DB {
 
-    private final String url = "jdbc:derby://localhost:1527/Sopra_DB;user=sopra;password=sopra";
+    private final String url = "jdbc:derby://localhost:1527/SOPRADB;user=sorpa;password=sopra";
     private Connection conn = null;
     private Statement stmt = null;
     private final String Nomtable = "USERDB";
