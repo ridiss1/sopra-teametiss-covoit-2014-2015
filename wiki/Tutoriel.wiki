@@ -22,4 +22,4 @@ Une fois que la configuration de la base de donnée à bien été faite, vous po
 = Etape 2=
 
 Dans cette étape vous pouvez commencer à jouer avec l'application. Il suffit de lancer l'application à l'aide du bouton de compliation et vous serez rediriger vers la page, d'accueil de l'application.
-https://code.google.com/p/sopra-teametiss-covoit-2014-2015/source/browse/Capture+d’écran+2015-01-28+à+10.43.57.png
+http://code.google.com/images/
