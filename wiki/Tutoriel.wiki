@@ -22,6 +22,7 @@ Une fois que la configuration de la base de donnée à bien été faite, vous po
 = Etape 2=
 
 Dans cette étape vous pouvez commencer à jouer avec l'application. Il suffit de lancer l'application à l'aide du bouton de compliation et vous serez rediriger vers la page, d'accueil de l'application.
-http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/1.png
+  
+   *Page d'accueil
 
-<img src="http://yourgoogleproject.googlecode.com/files/name of your image.PNG" alt="Logo"/>
+http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/1.png
