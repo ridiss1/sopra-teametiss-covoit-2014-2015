@@ -14,7 +14,7 @@ Dans notre implementation nous avons travaillé avec JavaDB( Derby) sur Netbeans
 23      private final String url = "jdbc:derby://localhost:1527/SOPRADB;user=sorpa;password=sopra";
 }}}
 
-       *SOPRADB est le Nom de la table.
+       *  SOPRADB est le Nom de la table.
 
 Une fois que la configuration de la base de donnée à bien été faite, vous pouvez passer à l'étape 2.
 
@@ -23,11 +23,11 @@ Une fois que la configuration de la base de donnée à bien été faite, vous po
 
 Dans cette étape vous pouvez commencer à jouer avec l'application. Il suffit de lancer l'application à l'aide du bouton de compliation et vous serez rediriger vers la page, d'accueil de l'application.
   
-   *Page d'accueil
+   ==Page d'accueil==
 
 http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/1.png
 
-  *Connexion:
+  #Connexion:
 Si vous avez déjà créé votre compte vous pouvez logger et accédé à votre session.
 
    * Créer un compte:
