@@ -30,7 +30,7 @@ http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/1.png
   *  *Connexion*:
 Si vous avez déjà créé votre compte vous pouvez logger et accédé à votre session.
 
-   *  * Créer un compte*:
+   *  *Créer un compte*:
 Vous devez renseigner des donnée valides. Une fois terminer un mail vous sera envoyé pour confirmé votre inscription.
  
 ===Formulaire===
@@ -39,10 +39,10 @@ http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/2.png
 
 
 == Session client===
-Une fois connecté vous aurez accès à toutes vos donnée client.
-*  * Recherche*: Vous affiche toutes les disponibilités correspondant à votre trajet.
+Une fois connecté vous aurez accès à toutes vos données client.
+   *  *Recherche*: Vous affiche toutes les disponibilités correspondant à votre trajet.
 
-*  * Recherche Avancé*: vous permet de réduire votre recherche à un conducteur de votre choix.
+   *  *Recherche Avancé*: vous permet de réduire votre recherche à un conducteur de votre choix.
 
 http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/3.png
 
