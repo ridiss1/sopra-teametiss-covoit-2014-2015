@@ -50,6 +50,6 @@ http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/4.png
 
 
 =suite=
-Vous pouvez découvrir par vous même des fonctionnalités qui n'ont pas été abordé dans ce *bold* Tutoriel. 
+Vous pouvez découvrir par vous même des fonctionnalités qui n'ont pas été abordé dans ce *Tutoriel*. 
 
-======= La TeamMetiss Vous souhaite une  BONNE NAVIGATION SUR SopraCov ========
+======= *La TeamMetiss Vous souhaite une  BONNE NAVIGATION SUR SopraCov* ========
