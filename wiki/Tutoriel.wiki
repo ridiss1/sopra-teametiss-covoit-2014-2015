@@ -1,4 +1,4 @@
-#Bienvenue sur le guide notre application.
+ ==Bienvenue sur le Tutoriel notre application==
 
 = Description =
 Pour pouvoir bien utiliser notre application, il y a des étapes importantes qu'il faut valider.
@@ -30,7 +30,7 @@ http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/1.png
   *  Connexion:
 Si vous avez déjà créé votre compte vous pouvez logger et accédé à votre session.
 
-   *  Créer un compte:
+   *  *bold* Créer un compte:
 Vous devez renseigner des donnée valides. Une fois terminer un mail vous sera envoyé pour confirmé votre inscription.
  
 ===Formulaire===
@@ -40,6 +40,9 @@ http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/2.png
 
 == Session client===
 Une fois connecté vous aurez accès à toutes vos donnée client.
+*  *bold* Recherche: Vous affiche toutes les disponibilités correspondant à votre trajet.
+
+*  *bold* Recherche Avancé: vous permet de réduire votre recherche à un conducteur de votre choix.
 
 http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/3.png
 
@@ -49,4 +52,4 @@ http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/4.png
 ====suite====
 Vous pouvez découvrir par vous même des fonctionnalités qui n'ont pas été abordé dans ce *bold* Tutoriel. 
 
-======= La TeamMetiss Vous souhaite  BON NAVIGATION SUR SopraCov ========
+======= La TeamMetiss Vous souhaite une  BONNE NAVIGATION SUR SopraCov ========
