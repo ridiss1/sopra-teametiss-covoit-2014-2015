@@ -9,12 +9,12 @@ Pour pouvoir bien utiliser notre application, il y a des étapes importantes qu'
 == Configuration de la base de donnée ==
 
 Cette étape permettra de bien configurer la base de donnée. Notre application utilise 2 tables majeurs pour les différentes manipulations. Ces tables sont USERBD et Routes, leur description se trouve [https://docs.google.com/document/d/1BXa7TH9INh_CkOfj3eV0kYoMxeeWP2dspeH8kBXxDtA/edit?usp=sharing ici] .
-Dans notre implementation nous avons travaillé avec JavaDB( Derby) sur Netbeans. Il est nécessaire de transmettre un lien pour la connection à la basse de donnée. Vous devez modifier la ligne 23 du fichier *bold* "DB.java" se trouvant dans le Model.
+Dans notre implementation nous avons travaillé avec JavaDB( Derby) sur Netbeans. Il est nécessaire de transmettre un lien pour la connection à la basse de donnée. Vous devez modifier la ligne 23 du fichier * "DB.java"* se trouvant dans le Model.
 {{{
 23      private final String url = "jdbc:derby://localhost:1527/SOPRADB;user=sorpa;password=sopra";
 }}}
 
-       *  SOPRADB est le Nom de la table.
+       *  *SOPRADB* est le Nom de la table.
 
 Une fois que la configuration de la base de donnée à bien été faite, vous pouvez passer à l'étape 2.
 
@@ -30,7 +30,7 @@ http://sopra-teametiss-covoit-2014-2015.googlecode.com/svn/1.png
   *  Connexion:
 Si vous avez déjà créé votre compte vous pouvez logger et accédé à votre session.
 
-   *  *bold* Créer un compte:
+   *  * Créer un compte*:
 Vous devez renseigner des donnée valides. Une fois terminer un mail vous sera envoyé pour confirmé votre inscription.
  
 ===Formulaire===
